@@ -5,6 +5,19 @@
     <!-- Automatically convert and display the date in Bengali -->
     <time datetime="{{ include.post.date | date_to_xmlschema }}">
       {% assign eng_date = include.post.date | date: "%d %B %Y" %}
+      {% assign eng_date = eng_date 
+        | replace: "January", "জানুয়ারি" 
+        | replace: "February", "ফেব্রুয়ারি" 
+        | replace: "March", "মার্চ" 
+        | replace: "April", "এপ্রিল" 
+        | replace: "May", "মে" 
+        | replace: "June", "জুন" 
+        | replace: "July", "জুলাই" 
+        | replace: "August", "আগস্ট" 
+        | replace: "September", "সেপ্টেম্বর" 
+        | replace: "October", "অক্টোবর" 
+        | replace: "November", "নভেম্বর" 
+        | replace: "December", "ডিসেম্বর" %}
       {{ eng_date | replace: "0", "০" | replace: "1", "১" | replace: "2", "২" | replace: "3", "৩" | replace: "4", "৪" | replace: "5", "৫" | replace: "6", "৬" | replace: "7", "৭" | replace: "8", "৮" | replace: "9", "৯" }}
     </time>
   {%- else -%}
