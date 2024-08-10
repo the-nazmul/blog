@@ -4,7 +4,13 @@ layout: default
 
 <article>
   {% include meta.html post=page %}
+  
+  <div class="post-date">
+    <p><strong>{{ page.bengali_date }}</strong></p>
+  </div>
+  
   {{ content }}
+  
   {% if page.comments != false and site.comments.isso or site.comments.disqus %}
     <hr>
     {% if site.comments.isso_domain %}<div id="isso-thread"></div>{% endif %}
@@ -12,4 +18,5 @@ layout: default
     <noscript>Please enable JavaScript to view comments.</noscript>
   {% endif %}
 </article>
+
 
