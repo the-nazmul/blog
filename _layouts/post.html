@@ -4,19 +4,7 @@ layout: default
 
 <article>
   {% include meta.html post=page %}
-
-  {% if page.toc %}
-    <nav class="table-of-contents">
-      <h2>Table of Contents</h2>
-      <ul>
-        <li>Test TOC Item 1</li>
-        <li>Test TOC Item 2</li>
-      </ul>
-    </nav>
-  {% endif %}
-
   {{ content }}
-
   {% if page.comments != false and site.comments.isso or site.comments.disqus %}
     <hr>
     {% if site.comments.isso_domain %}<div id="isso-thread"></div>{% endif %}
