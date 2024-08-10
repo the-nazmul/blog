@@ -1,29 +1,23 @@
 <header>
   <h1><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h1>
   
-  {%- if include.post.bengali_date == true -%}
-    <!-- Automatically convert and display the date in Bengali -->
-    <time datetime="{{ include.post.date | date_to_xmlschema }}">
-      {% assign eng_date = include.post.date | date: "%d %B %Y" %}
-      {% assign eng_date = eng_date 
-        | replace: "January", "জানুয়ারি" 
-        | replace: "February", "ফেব্রুয়ারি" 
-        | replace: "March", "মার্চ" 
-        | replace: "April", "এপ্রিল" 
-        | replace: "May", "মে" 
-        | replace: "June", "জুন" 
-        | replace: "July", "জুলাই" 
-        | replace: "August", "আগস্ট" 
-        | replace: "September", "সেপ্টেম্বর" 
-        | replace: "October", "অক্টোবর" 
-        | replace: "November", "নভেম্বর" 
-        | replace: "December", "ডিসেম্বর" %}
-      {{ eng_date | replace: "0", "০" | replace: "1", "১" | replace: "2", "২" | replace: "3", "৩" | replace: "4", "৪" | replace: "5", "৫" | replace: "6", "৬" | replace: "7", "৭" | replace: "8", "৮" | replace: "9", "৯" }}
-    </time>
-  {%- else -%}
-    <!-- Fallback to Default Date if Bengali Date is not enabled -->
-    {%- assign date_format = site.date_format | default: "%B %d, %Y" -%}
-    <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: date_format }}</time>
-  {%- endif -%}
+  <!-- Convert and Display Date in Bengali -->
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">
+    {% assign eng_date = include.post.date | date: "%d %B %Y" %}
+    {% assign bengali_date = eng_date 
+      | replace: "January", "জানুয়ারি" 
+      | replace: "February", "ফেব্রুয়ারি" 
+      | replace: "March", "মার্চ" 
+      | replace: "April", "এপ্রিল" 
+      | replace: "May", "মে" 
+      | replace: "June", "জুন" 
+      | replace: "July", "জুলাই" 
+      | replace: "August", "আগস্ট" 
+      | replace: "September", "সেপ্টেম্বর" 
+      | replace: "October", "অক্টোবর" 
+      | replace: "November", "নভেম্বর" 
+      | replace: "December", "ডিসেম্বর" %}
+    {{ bengali_date | replace: "0", "০" | replace: "1", "১" | replace: "2", "২" | replace: "3", "৩" | replace: "4", "৪" | replace: "5", "৫" | replace: "6", "৬" | replace: "7", "৭" | replace: "8", "৮" | replace: "9", "৯" }}
+  </time>
   
 </header>
