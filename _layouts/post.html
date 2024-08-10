@@ -9,20 +9,8 @@ layout: default
     <nav class="table-of-contents">
       <h2>Table of Contents</h2>
       <ul>
-        {% assign toc_html = "" %}
-        {% assign headings = page.content | markdownify | split:'<h' %}
-        {% for heading in headings %}
-          {% if heading contains '1' or heading contains '2' %}
-            {% assign heading_number = heading | slice: 0, 1 %}
-            {% assign heading_content = heading | split:'>' | last | split:'<' | first %}
-            {% assign heading_id = heading | split:'id="' | last | split:'"' | first %}
-            {% if heading_id == heading %}
-              {% assign heading_id = heading_content | downcase | replace: ' ', '-' %}
-            {% endif %}
-            <li><a href="#{{ heading_id }}">{{ heading_content }}</a></li>
-            {% break %}
-          {% endif %}
-        {% endfor %}
+        <li>Test TOC Item 1</li>
+        <li>Test TOC Item 2</li>
       </ul>
     </nav>
   {% endif %}
@@ -36,3 +24,4 @@ layout: default
     <noscript>Please enable JavaScript to view comments.</noscript>
   {% endif %}
 </article>
+
