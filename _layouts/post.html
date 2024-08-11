@@ -38,6 +38,10 @@ layout: default
 
 <!-- Feedback Icon JavaScript -->
 <script>
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
   function handleSelection() {
     const selectedText = window.getSelection().toString().trim();
     const feedbackIcon = document.getElementById('feedbackIcon');
