@@ -19,4 +19,45 @@ layout: default
   {% endif %}
 </article>
 
+<!-- Feedback Icon HTML -->
+<div id="feedbackIcon" class="feedback-icon">💬</div>
 
+<!-- Feedback Icon CSS -->
+<style>
+  .feedback-icon {
+    display: none;
+    position: absolute;
+    background: #007bff;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+  }
+</style>
+
+<!-- Feedback Icon JavaScript -->
+<script>
+  document.addEventListener('mouseup', function (e) {
+    const selectedText = window.getSelection().toString().trim();
+    const feedbackIcon = document.getElementById('feedbackIcon');
+
+    if (selectedText.length > 0) {
+      const range = window.getSelection().getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+
+      feedbackIcon.style.top = `${rect.top + window.scrollY - 30}px`;
+      feedbackIcon.style.left = `${rect.left + window.scrollX}px`;
+      feedbackIcon.style.display = 'block';
+
+      feedbackIcon.onclick = function() {
+        const formUrl = "https://docs.google.com/forms/d/e/your-google-form-id/formResponse";
+        const feedbackLink = `${formUrl}?entry.1234567890=${encodeURIComponent(selectedText)}`;
+
+        window.open(feedbackLink, '_blank');
+      };
+    } else {
+      feedbackIcon.style.display = 'none';
+    }
+  });
+</script>
