@@ -58,7 +58,8 @@ layout: default
     if (selectedText.length > 0) {
       const rect = range.getBoundingClientRect();
 
-      feedbackIcon.style.top = `${rect.top + window.scrollY - 30}px`;
+      // Adjust the top position to be just below the selected text
+      feedbackIcon.style.top = `${rect.bottom + window.scrollY + 5}px`; // 5px below the selected text
       feedbackIcon.style.left = `${rect.left + window.scrollX}px`;
       feedbackIcon.style.display = 'block';
 
@@ -74,5 +75,6 @@ layout: default
   }
 
   document.addEventListener('mouseup', handleSelection);
-  document.addEventListener('touchend', handleSelection);  // Add this line for mobile support
+  document.addEventListener('touchend', handleSelection);
 </script>
+
