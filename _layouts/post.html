@@ -1,44 +1,5 @@
----
-layout: default
----
-
-<article>
-  {% include meta.html post=page %}
-  
-  <div class="post-date">
-    <p><strong>{{ page.bengali_date }}</strong></p>
-  </div>
-  
-  {{ content }}
-  
-  {% if page.comments != false and site.comments.isso or site.comments.disqus %}
-    <hr>
-    {% if site.comments.isso_domain %}<div id="isso-thread"></div>{% endif %}
-    {% if site.comments.disqus_shortname %}<div id="disqus_thread"></div>{% endif %}
-    <noscript>Please enable JavaScript to view comments.</noscript>
-  {% endif %}
-</article>
-
-<!-- Feedback Icon HTML -->
-<div id="feedbackIcon" class="feedback-icon">মতামত দিন 💬</div>
-
-<!-- Feedback Icon CSS -->
-<style>
-  .feedback-icon {
-    display: none;
-    position: absolute;
-    background: black;
-    color: white;
-    padding: 5px;
-   
-    cursor: pointer;
-    z-index: 1000;
-  }
-</style>
-
-<!-- Feedback Icon JavaScript -->
 <script>
-  document.addEventListener('mouseup', function (e) {
+  function handleSelection() {
     const selectedText = window.getSelection().toString().trim();
     const feedbackIcon = document.getElementById('feedbackIcon');
     let headingText = '';
@@ -71,5 +32,8 @@ layout: default
     } else {
       feedbackIcon.style.display = 'none';
     }
-  });
+  }
+
+  document.addEventListener('mouseup', handleSelection);
+  document.addEventListener('touchend', handleSelection);  // Add this line for mobile support
 </script>
