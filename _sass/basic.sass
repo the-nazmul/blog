@@ -111,23 +111,17 @@ abbr:hover::after
   padding: $tooltip-padding
   position: absolute
   width: auto
-  max-width: 90% /* Ensure the tooltip doesn't exceed the screen width */
+  max-width: calc(100% - 44%) /* Ensure the tooltip fits within the content width */
   z-index: 1
   left: 50%
   transform: translateX(-50%)
   white-space: normal /* Allow the tooltip text to wrap */
 
-  /* Adjust position to stay within the page bounds */
-  @media screen and (min-width: 600px)
-    left: auto
-    right: 10px /* Position it from the right edge of the container */
-    transform: none
-
-abbr:hover::after
-  @media screen and (max-width: 600px)
-    max-width: 90% /* Ensure the tooltip fits within smaller screens */
-    left: 50%
+  /* Adjust tooltip to ensure it stays within the content bounds */
+  @media (min-width: 32em)
+    max-width: calc(56% - 3em) /* Based on the responsive padding in your post page */
     transform: translateX(-50%)
+
 
 
 
