@@ -110,17 +110,10 @@ abbr:hover::after
   font-size: small
   padding: $tooltip-padding
   position: absolute
-  width: auto
-  max-width: calc(100% - 44%) /* Ensure the tooltip fits within the content width */
+  width: 350px
   z-index: 1
   left: 50%
-  transform: translateX(-50%)
   white-space: normal /* Allow the tooltip text to wrap */
-
-  /* Adjust tooltip to ensure it stays within the content bounds */
-  @media (min-width: 32em)
-    max-width: calc(56% - 3em) /* Based on the responsive padding in your post page */
-    transform: translateX(-50%)
 
 
 
