@@ -105,11 +105,13 @@ abbr
   position: relative
   
   &::after
-    content: 'ℹ️' /* You can change this to 'ℹ️' for an info icon */
-    font-size: 0.5em
-    margin-left: 0.2em
-    vertical-align: middle
-    color: inherit
+    content: '\f05a'; /* Unicode for circle-info */
+    font-family: 'fa'; /* or whichever version you're using */
+    font-weight: 400; /* Ensure it's using the solid version, if needed */
+    font-size: 0.8em;
+    margin-left: 0.2em;
+    vertical-align: middle;
+    color: inherit;
 
 abbr:hover::after
   background: #fdf5e6
