@@ -33,20 +33,25 @@
 
 {{ content }}
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      document.querySelectorAll("h2").forEach(function(h2) {
-        var text = h2.innerText || h2.textContent;
-        var id = text.trim().toLowerCase().replace(/[^\w]+/g, '-');
-        h2.id = id;
-        var link = document.createElement("a");
-        link.href = "#" + id;
-        link.innerText = text;
-        h2.innerHTML = "";
-        h2.appendChild(link);
-      });
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("h2").forEach(function(h2) {
+      var text = h2.innerText || h2.textContent;
+      // Convert text to a slug-like id, preserving non-Latin characters
+      var id = text.trim()
+                   .toLowerCase()
+                   .replace(/[\s]+/g, '-')        // Replace spaces with hyphens
+                   .replace(/[^\w\u00C0-\u024F]+/g, ''); // Remove all non-word characters except Unicode letters
+      h2.id = id;
+      var link = document.createElement("a");
+      link.href = "#" + id;
+      link.innerText = text;
+      h2.innerHTML = "";
+      h2.appendChild(link);
     });
-  </script>
+  });
+</script>
+
 
 {% if site.external %}
 {% endif %}
