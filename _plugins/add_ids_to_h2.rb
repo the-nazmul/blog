@@ -6,8 +6,8 @@ module Jekyll
         text = $1
         # Convert text to a slug-like id
         id = text.strip.downcase.gsub(/[^\w]+/, '-')
-        # Return h2 with an id attribute
-        "<h2 id=\"#{id}\">#{text}</h2>"
+        # Return h2 with an id attribute and wrapped in an anchor tag
+        "<h2 id=\"#{id}\"><a href=\"##{id}\">#{text}</a></h2>"
       end
     end
   end
