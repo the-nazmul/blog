@@ -1,5 +1,5 @@
 <header>
-  <h1><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h1>
+  <h1>{{ include.post.title }}</h1>
   
   <!-- Convert and Display Date in Bengali -->
   <time datetime="{{ include.post.date | date_to_xmlschema }}">
