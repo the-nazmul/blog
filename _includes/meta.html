@@ -1,5 +1,5 @@
 <header>
-  <h1>{{ include.post.title }}</h1>
+<h1>{{ page.custom_title | markdownify }}</h1>
   
   <!-- Convert and Display Date in Bengali -->
   <time datetime="{{ include.post.date | date_to_xmlschema }}">
