@@ -37,11 +37,10 @@
   document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll("h2").forEach(function(h2) {
       var text = h2.innerText || h2.textContent;
-      // Convert text to a slug-like id, preserving non-Latin characters
+      // Convert the text to a slug-like id, allowing Bengali characters
       var id = text.trim()
-                   .toLowerCase()
-                   .replace(/[\s]+/g, '-')        // Replace spaces with hyphens
-                   .replace(/[^\w\u00C0-\u024F]+/g, ''); // Remove all non-word characters except Unicode letters
+                   .replace(/\s+/g, '-')        // Replace spaces with hyphens
+                   .replace(/[^a-zA-Z0-9\u0980-\u09FF\-]+/g, ''); // Allow Bengali characters and hyphens
       h2.id = id;
       var link = document.createElement("a");
       link.href = "#" + id;
@@ -51,6 +50,7 @@
     });
   });
 </script>
+
 
 
 {% if site.external %}
