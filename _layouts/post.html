@@ -33,6 +33,16 @@ layout: default
     cursor: pointer;
     z-index: 1000;
   }
+
+  .toggle-icon {
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+  }
+
+  .collapsible-content {
+    display: none;
+  }
 </style>
 
 <script>
@@ -83,24 +93,23 @@ layout: default
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize collapsible elements using Materialize
-    var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems, {});
-
-    // Find all h2 tags and wrap them and their following content in a collapsible structure
+    // Find all h2 tags and add a toggle icon next to them
     $('h2').each(function() {
       var heading = $(this);
       var content = heading.nextUntil('h2'); // Find content until the next h2
       
-      // Wrap the heading in a collapsible header
-      heading.wrap('<div class="collapsible-header"></div>');
-      
-      // Wrap the heading and its content together in a collapsible body
-      heading.next().addBack().wrapAll('<li class="collapsible"><ul class="collapsible-body"><span></span></ul></li>');
+      // Add a toggle icon after each h2
+      var toggleIcon = $('<span class="toggle-icon">&#x25BC;</span>'); // Unicode for down arrow
+      heading.append(toggleIcon);
 
+      // Wrap the content in a collapsible container
+      content.wrapAll('<div class="collapsible-content"></div>');
+
+      // Add click event to the toggle icon
+      toggleIcon.on('click', function() {
+        $(this).text($(this).text() == '\u25BC' ? '\u25B2' : '\u25BC'); // Toggle arrow direction
+        heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
+      });
     });
-
-    // Reinitialize collapsibles after modifying the DOM
-    M.Collapsible.init($('.collapsible'), {});
   });
 </script>
