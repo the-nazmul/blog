@@ -63,10 +63,28 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Initialize collapsible elements using Materialize
     var elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems, {});
+
+    // Find all h2 tags
+    $('h2').each(function() {
+      // Wrap each h2 and the following content in a collapsible structure
+      var heading = $(this);
+      var content = heading.nextUntil('h2');
+
+      heading.wrap('<ul class="collapsible"><li></li></ul>');
+      heading.before('<div class="collapsible-header"></div>');
+      heading.addClass('collapsible-header'); // Make h2 a collapsible header
+
+      content.wrapAll('<div class="collapsible-body"><span></span></div>');
+    });
+
+    // Reinitialize collapsibles after modifying the DOM
+    M.Collapsible.init($('.collapsible'), {});
   });
 </script>
+
 
 
 {% if site.external %}
