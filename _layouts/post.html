@@ -9,7 +9,19 @@ layout: default
     <p><strong>{{ page.bengali_date }}</strong></p>
   </div>
   
-  {{ content | add_ids_to_h2 }}
+  <!-- Start of collapsible content -->
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><h2>Your Heading Here</h2></div>
+      <div class="collapsible-body">
+        <span>
+          {{ content | add_ids_to_h2 }}
+        </span>
+      </div>
+    </li>
+    <!-- Add more <li> elements as needed for additional collapsible sections -->
+  </ul>
+  <!-- End of collapsible content -->
 
   {% if page.comments != false and site.comments.isso or site.comments.disqus %}
     <hr>
@@ -18,6 +30,7 @@ layout: default
     <noscript>Please enable JavaScript to view comments.</noscript>
   {% endif %}
 </article>
+
 
 
 
