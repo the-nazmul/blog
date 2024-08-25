@@ -87,17 +87,17 @@ layout: default
     var elems = document.querySelectorAll('.collapsible');
     var instances = M.Collapsible.init(elems, {});
 
-    // Find all h2 tags
+    // Find all h2 tags and wrap them and their following content in a collapsible structure
     $('h2').each(function() {
-      // Wrap each h2 and the following content in a collapsible structure
       var heading = $(this);
-      var content = heading.nextUntil('h2');
+      var content = heading.nextUntil('h2'); // Find content until the next h2
+      
+      // Wrap the heading in a collapsible header
+      heading.wrap('<div class="collapsible-header"></div>');
+      
+      // Wrap the heading and its content together in a collapsible body
+      heading.next().addBack().wrapAll('<li class="collapsible"><ul class="collapsible-body"><span></span></ul></li>');
 
-      heading.wrap('<ul class="collapsible"><li></li></ul>');
-      heading.before('<div class="collapsible-header"></div>');
-      heading.addClass('collapsible-header'); // Make h2 a collapsible header
-
-      content.wrapAll('<div class="collapsible-body"><span></span></div>');
     });
 
     // Reinitialize collapsibles after modifying the DOM
