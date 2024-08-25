@@ -13,14 +13,6 @@
 {% endif %}
 {% if site.plugins contains "jekyll-feed" %}<link rel="alternate" href="{{ site.feed.path | default: "/feed.xml" | relative_url }}" type="application/atom+xml" title="{{ site.title }}">{% endif %}
 {% if page.mathjax or site.mathjax %}
-  <!-- Include Materialize CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-
-<!-- Include jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- Include Materialize JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 <link rel="stylesheet" href="{{ "/assets/katex/katex.min.css" | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,30 +50,6 @@
       h2.innerHTML = "";
       h2.appendChild(link);
     });
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize collapsible elements using Materialize
-    var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems, {});
-
-    // Find all h2 tags
-    $('h2').each(function() {
-      // Wrap each h2 and the following content in a collapsible structure
-      var heading = $(this);
-      var content = heading.nextUntil('h2');
-
-      heading.wrap('<ul class="collapsible"><li></li></ul>');
-      heading.before('<div class="collapsible-header"></div>');
-      heading.addClass('collapsible-header'); // Make h2 a collapsible header
-
-      content.wrapAll('<div class="collapsible-body"><span></span></div>');
-    });
-
-    // Reinitialize collapsibles after modifying the DOM
-    M.Collapsible.init($('.collapsible'), {});
   });
 </script>
 
