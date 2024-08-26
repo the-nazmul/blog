@@ -55,30 +55,36 @@ layout: default
     const feedbackIcon = document.getElementById('feedbackIcon');
     let headingText = '';
 
-    const range = window.getSelection().getRangeAt(0);
-    let node = range.startContainer;
+    try {
+      const range = window.getSelection().rangeCount > 0 ? window.getSelection().getRangeAt(0) : null;
+      if (!range) return; // Exit if no valid range
 
-    while (node) {
-      if (node.nodeType === Node.ELEMENT_NODE && (node.tagName === 'H2' || node.tagName === 'H3')) {
-        headingText = node.textContent.trim();
-        break;
+      let node = range.startContainer;
+
+      while (node) {
+        if (node.nodeType === Node.ELEMENT_NODE && (node.tagName === 'H2' || node.tagName === 'H3')) {
+          headingText = node.textContent.trim();
+          break;
+        }
+        node = node.previousElementSibling || node.parentElement;
       }
-      node = node.previousElementSibling || node.parentElement;
-    }
 
-    if (selectedText.length > 0) {
-      const rect = range.getBoundingClientRect();
-      feedbackIcon.style.top = `${rect.bottom + window.scrollY + 5}px`;
-      feedbackIcon.style.left = `${rect.left + window.scrollX}px`;
-      feedbackIcon.style.display = 'block';
+      if (selectedText.length > 0) {
+        const rect = range.getBoundingClientRect();
+        feedbackIcon.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        feedbackIcon.style.left = `${rect.left + window.scrollX}px`;
+        feedbackIcon.style.display = 'block';
 
-      feedbackIcon.onclick = function() {
-        const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScW7dEB7FoqW9CbsDlzIrhqxJGxS_0Q7seKzNsVVqrQE6uPOQ/formResponse";
-        const feedbackLink = `${formUrl}?entry.501096513=${encodeURIComponent(headingText)}&entry.1634181542=${encodeURIComponent(selectedText)}`;
-        window.open(feedbackLink, '_blank');
-      };
-    } else {
-      feedbackIcon.style.display = 'none';
+        feedbackIcon.onclick = function() {
+          const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScW7dEB7FoqW9CbsDlzIrhqxJGxS_0Q7seKzNsVVqrQE6uPOQ/formResponse";
+          const feedbackLink = `${formUrl}?entry.501096513=${encodeURIComponent(headingText)}&entry.1634181542=${encodeURIComponent(selectedText)}`;
+          window.open(feedbackLink, '_blank');
+        };
+      } else {
+        feedbackIcon.style.display = 'none';
+      }
+    } catch (e) {
+      console.error('Error handling text selection:', e);
     }
   }
 
