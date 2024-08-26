@@ -41,7 +41,7 @@ layout: default
   }
 
   .collapsible-content {
-    display: none;
+    display: none; /* Hidden by default */
   }
 </style>
 
@@ -111,9 +111,11 @@ layout: default
       // Wrap the content in a collapsible container
       content.wrapAll('<div class="collapsible-content"></div>');
 
-      // Add click event to the toggle icon
-      toggleIcon.on('click', function() {
-        $(this).text($(this).text() == '\u25BC' ? '\u25B2' : '\u25BC'); // Toggle arrow direction
+      // Add click event to the toggle icon and the h2
+      heading.on('click', function() {
+        $(this).find('.toggle-icon').text(function(_, currentText) {
+          return currentText === '\u25BC' ? '\u25B2' : '\u25BC'; // Toggle arrow direction
+        });
         heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
       });
     });
