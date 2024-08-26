@@ -38,7 +38,6 @@ layout: default
     cursor: pointer;
     font-size: 0.8em;
     margin-left: 10px;
-    font-family: 'fa';
   }
 
   .collapsible-content {
@@ -93,11 +92,10 @@ layout: default
   document.addEventListener('touchend', handleSelection);
 </script>
 
-<!-- Materialize, jQuery, and Font Awesome includes -->
+<!-- Materialize and jQuery includes -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- Assume Font Awesome is already included as 'fa' -->
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -106,8 +104,8 @@ layout: default
       var heading = $(this);
       var content = heading.nextUntil('h2'); // Find content until the next h2
       
-      // Add a toggle icon after each h2 using Font Awesome character numbers
-      var toggleIcon = $('<i class="fa toggle-icon">&#xf078;</i>'); // Font Awesome down arrow
+      // Add a toggle icon after each h2 using the Unicode symbol ⇊ with a space
+      var toggleIcon = $('<span class="toggle-icon"> ⇊</span>'); 
       heading.append(toggleIcon);
 
       // Wrap the content in a collapsible container
@@ -115,8 +113,8 @@ layout: default
 
       // Add click event to the toggle icon and the h2
       heading.on('click', function() {
-        $(this).find('.toggle-icon').html(function(_, currentHtml) {
-          return currentHtml === '\uf078' ? '\uf077' : '\uf078'; // Toggle between down and up chevron
+        $(this).find('.toggle-icon').text(function(_, currentText) {
+          return currentText.trim() === '⇊' ? '⇈' : '⇊'; // Toggle between down and up arrows
         });
         heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
       });
