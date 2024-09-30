@@ -34,12 +34,6 @@ layout: default
     z-index: 1000;
   }
 
-  .toggle-icon {
-    cursor: pointer;
-    font-size: 0.8em;
-    margin-left: 10px;
-  }
-
   .collapsible-content {
     display: none; /* Hidden by default */
   }
@@ -134,28 +128,34 @@ layout: default
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-<!-- jQuery script for collapsible accordion -->
+
+<!-- jQuery script to test toggle functionality -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Find all h2 tags and add a toggle icon next to them
+  $(document).ready(function() {
+    // Test if jQuery is working
+    console.log('jQuery is working!');
+
+    // Find all h2 tags
     $('h2').each(function() {
       var heading = $(this);
       var content = heading.nextUntil('h2'); // Find content until the next h2
 
-      // Add a toggle icon (div) with a class that will be styled using CSS
-      var toggleIcon = $('<div class="toggle-icon"></div>');
-      heading.append(toggleIcon);
+      // Add a toggle icon (simple text icon for testing) before the h2 text
+      var toggleIcon = $('<span class="toggle-icon">[+]</span>');
+      heading.prepend(toggleIcon);
 
       // Wrap the content in a collapsible container
       content.wrapAll('<div class="collapsible-content" style="display:none;"></div>');
 
-      // Add click event to the toggle icon and the h2
+      // Click event on the toggle icon to toggle the content
       heading.on('click', function() {
-        // Toggle 'open' class to animate the plus/minus symbol
-        $(this).find('.toggle-icon').toggleClass('open');
+        $(this).find('.toggle-icon').text(function(_, currentText) {
+          return currentText === '[+]' ? '[−]' : '[+]'; // Switch between plus and minus
+        });
         heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
       });
     });
   });
 </script>
+
 
