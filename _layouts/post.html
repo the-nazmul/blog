@@ -43,6 +43,44 @@ layout: default
   .collapsible-content {
     display: none; /* Hidden by default */
   }
+
+  /* Styling for the plus and minus toggle icon */
+.toggle-icon {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.toggle-icon:before,
+.toggle-icon:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background-color: #39a098;
+  transition: all 0.3s ease;
+}
+
+.toggle-icon:before {
+  transform: translate(-50%, -50%);
+}
+
+.toggle-icon:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.toggle-icon.open:before {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.toggle-icon.open:after {
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
 </style>
 
 <script>
@@ -96,27 +134,28 @@ layout: default
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+<!-- jQuery script for collapsible accordion -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Find all h2 tags and add a toggle icon next to them
     $('h2').each(function() {
       var heading = $(this);
       var content = heading.nextUntil('h2'); // Find content until the next h2
-      
-      // Add a toggle icon after each h2 using the Unicode symbol ⇊ with a space
-      var toggleIcon = $('<span class="toggle-icon"> ⇊</span>'); 
+
+      // Add a toggle icon (div) with a class that will be styled using CSS
+      var toggleIcon = $('<div class="toggle-icon"></div>');
       heading.append(toggleIcon);
 
       // Wrap the content in a collapsible container
-      content.wrapAll('<div class="collapsible-content"></div>');
+      content.wrapAll('<div class="collapsible-content" style="display:none;"></div>');
 
       // Add click event to the toggle icon and the h2
       heading.on('click', function() {
-        $(this).find('.toggle-icon').text(function(_, currentText) {
-          return currentText.trim() === '⇊' ? '⇈' : '⇊'; // Toggle between down and up arrows
-        });
+        // Toggle 'open' class to animate the plus/minus symbol
+        $(this).find('.toggle-icon').toggleClass('open');
         heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
       });
     });
   });
 </script>
+
