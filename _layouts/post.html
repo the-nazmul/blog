@@ -129,6 +129,7 @@ layout: default
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 
+
 <!-- jQuery script to toggle after the h2 text -->
 <script>
   $(document).ready(function() {
@@ -141,7 +142,7 @@ layout: default
       var content = heading.nextUntil('h2'); // Find content until the next h2
 
       // Add a toggle icon (simple text icon for testing) after the h2 text
-      var toggleIcon = $('<span class="toggle-icon"></span>');
+      var toggleIcon = $('<span class="toggle-icon"> [+]</span>');
       heading.append(toggleIcon); // Append after the heading text
 
       // Wrap the content in a collapsible container
@@ -150,12 +151,13 @@ layout: default
       // Click event on the h2 to toggle the content
       heading.on('click', function() {
         $(this).find('.toggle-icon').text(function(_, currentText) {
-          return currentText.trim() === ; // Switch between plus and minus
+          return currentText.trim() === '[+]' ? ' [−]' : ' [+]'; // Switch between plus and minus
         });
         heading.next('.collapsible-content').slideToggle(); // Toggle visibility of content
       });
     });
   });
 </script>
+
 
 
