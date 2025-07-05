@@ -218,6 +218,34 @@ footer code {
   font-size: 0.9em;
 }
 
+.disclaimer {
+  max-width: 800px;
+  background-color: #fef3c7; /* light yellow */
+  border: 1px solid #fde68a;
+  color: #78350f;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 1rem auto;
+}
+
+.disclaimer .disclaimer-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #92400e;
+  cursor: pointer;
+  padding: 0;
+}
+
+.disclaimer .disclaimer-close:hover {
+  color: #b45309;
+}
 
 
     @media(min-width: 768px) {
@@ -234,7 +262,17 @@ footer code {
   </style>
 </head>
 <body>
-  <h1>সংবিধান সংশোধনী তুলনা</h1>
+  <h1>সংবিধান সংস্কার কমিশনে জমা হওয়া প্রস্তাবের তুলনামূলক বিবরণী</h1>
+
+<div id="disclaimer-banner" class="disclaimer">
+  <span class="disclaimer-text">
+    সংবিধান সংস্কার কমিশনে দেয়া দলগুলোর প্রস্তাব অনেক ক্ষেত্রেই পরিবর্তিত হয়েছে; বিশেষ করে জাতীয় ঐক্যমত্য কমিশনের বৈঠকে। 
+    এই ওয়েবসাইটে থাকা বিষয়াবলী পূর্ববর্তী সংবিধান সংস্কার কমিশনে জমা দেয়া প্রস্তাব। 
+    গবেষণা ও অ্যাকসিসেবল আর্কাইভ হিসেবে এই ওয়েবসাইট সেগুলো সংরক্ষণ করছে।
+  </span>
+  <button class="disclaimer-close" onclick="document.getElementById('disclaimer-banner').style.display='none'">✕</button>
+</div>
+
 
   <div class="toc">
     <h2>অনুচ্ছেদ নির্বাচন করুন</h2>
@@ -257,14 +295,15 @@ footer code {
   <p>
     কমিশনে জমা দেওয়া রাজনৈতিক দলগুলোর অপ্রকাশিত প্রস্তাব সরবরাহ করায় 
     <strong><a href="https://www.facebook.com/abu.jor.ansar.uddin.ahamod" target="_blank">রাজীব আহমদ</a></strong> 
-    (সাংবাদিক, সমকাল) কে আন্তরিক ধন্যবাদ।
+    (সাংবাদিক, সমকাল)-কে আন্তরিক ধন্যবাদ।
   </p>
 
   <p>
-    স্বেচ্ছাসেবী হিসেবে কনট্রিবিউশন দিয়েছেন — 
+    স্বেচ্ছাসেবী হিসেবে ভূমিকা রেখেছেন — 
     <a href="https://www.facebook.com/mahmud10081996#" target="_blank">মো. মাহমুদুল হাসান</a>, 
     <a href="https://www.facebook.com/mehediahasan123#" target="_blank">মেহেদী আহসান</a>, 
     <a href="https://www.facebook.com/mezbahsmaron1#" target="_blank">মেজবাহ স্মরণ</a>, 
+    <a href="https://www.facebook.com/mdabutaherjilani#" target="_blank">আবু তাহের জিলানী</a>, 
     <a href="https://www.facebook.com/syedahlan.jadid#" target="_blank">সৈয়দ আহলান জাদিদ</a>।
   </p>
 
