@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>সংবিধান সংশোধনী তুলনা</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --accent: #0f172a;
+      --accent-light: #e0e7ff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --radius: 0.75rem;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --font: "Noto Sans Bengali", sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 0 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-size: 2.2rem;
+    }
+    .toc {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: linear-gradient(145deg, #fdfdfd, #f3f6fa);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--border);
+    }
+
+    p {
+        font-family: 'Noto Serif Bengali';
+    }
+    .toc h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .toc li {
+      background: #fff;
+      padding: 0.75rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, background 0.2s;
+    }
+    .toc li:hover {
+      background: #f1f5f9;
+      transform: translateY(-2px);
+    }
+    .toc a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+    .accordion {
+      max-width: 1000px;
+      margin: 1.5rem auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--card-bg);
+    }
+    .accordion summary {
+      background: var(--accent);
+      color: white;
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .accordion .selector {
+      padding: 1rem 1.25rem;
+      background: var(--accent-light);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      justify-content: right;
+    }
+    .accordion select {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: #fff;
+      font-size: 1rem;
+    }
+    .accordion .content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+    .column {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: #fefefe;
+    }
+    .column h4 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    #part-nav button {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s ease;
+}
+
+#part-nav button:hover:not(:disabled) {
+  background-color: #1e293b; /* Slightly darker */
+  transform: translateY(-2px);
+}
+
+#part-nav button:disabled {
+  background-color: #cbd5e1;
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+footer {
+  background: #f8fafc;
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1.5rem;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text);
+  text-align: center;
+}
+
+footer p {
+  margin: 1.25rem 0;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+footer code {
+  background: #e2e8f0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+
+
+    @media(min-width: 768px) {
+      .accordion .content {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+  .selector select {
+    min-width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h1>সংবিধান সংশোধনী তুলনা</h1>
+
+  <div class="toc">
+    <h2>অনুচ্ছেদ নির্বাচন করুন</h2>
+    <ul id="toc-list"></ul>
+  </div>
+
+  <div id="articles"></div>
+<div id="part-nav" style="text-align:center; margin: 2rem 0;">
+  <button id="prev-part" disabled>← আগের অধ্যায়</button>
+  <span id="part-title" style="margin: 0 1.5rem; font-weight: bold;"></span>
+  <button id="next-part">পরের অধ্যায় →</button>
+</div>
+
+<footer>
+  <p>
+    <strong><a href="https://nazmulahasan.com" target="_blank">নাজমুল আহসান</a></strong> এই স্বেচ্ছাসেবামূলক প্রকল্পে নেতৃত্ব দিয়েছেন। 
+    <br>যোগাযোগ: <code>nazmul[@]berkeley.edu</code>
+  </p>
+
+  <p>
+    কমিশনে জমা দেওয়া রাজনৈতিক দলগুলোর অপ্রকাশিত প্রস্তাব সরবরাহ করায় 
+    <strong><a href="https://www.facebook.com/abu.jor.ansar.uddin.ahamod" target="_blank">রাজীব আহমদ</a></strong> 
+    (সাংবাদিক, সমকাল) কে আন্তরিক ধন্যবাদ।
+  </p>
+
+  <p>
+    স্বেচ্ছাসেবী হিসেবে কনট্রিবিউশন দিয়েছেন — 
+    <a href="https://www.facebook.com/mahmud10081996#" target="_blank">মো. মাহমুদুল হাসান</a>, 
+    <a href="https://www.facebook.com/mehediahasan123#" target="_blank">মেহেদী আহসান</a>, 
+    <a href="https://www.facebook.com/mezbahsmaron1#" target="_blank">মেজবাহ স্মরণ</a>, 
+    <a href="https://www.facebook.com/syedahlan.jadid#" target="_blank">সৈয়দ আহলান জাদিদ</a>।
+  </p>
+
+  <p>
+    এই সাইটের কনটেন্ট ও কোড <strong>Creative Commons Attribution লাইসেন্স</strong>-এর আওতায় উন্মুক্ত। 
+    <br>
+    সোর্সকোড ও ফাইলসমূহ পাওয়া যাবে এই 
+    <a href="https://github.com/the-nazmul/bangladesh-reform-commissions/tree/main/constitution" target="_blank">
+      GitHub রিপোজিটরিতে
+    </a>।
+  </p>
+</footer>
+
+
+
+<script>
+const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+const toBanglaNumber = num => num.toString().split('').map(d => bnNums[+d] || d).join('');
+
+let partKeys = [];
+let partArticlesMap = {};
+let currentPartIndex = 0;
+
+async function loadData() {
+  const res = await fetch('crc.json');
+  const rawData = await res.json();
+
+  rawData.forEach(row => {
+    const part = row["Part"]?.trim() || "[অনির্ধারিত অধ্যায়]";
+    const article = row["Article"]?.trim() || "[অনির্ধারিত অনুচ্ছেদ]";
+    if (!partArticlesMap[part]) partArticlesMap[part] = {};
+    if (!partArticlesMap[part][article]) {
+      partArticlesMap[part][article] = {
+        article,
+        current: row["Current Form"]?.trim() || "",
+        commission: row["Commission’s Proposals"]?.trim() || "",
+        party_proposals: []
+      };
+    }
+
+    const party = row["Political Party"]?.trim();
+    const text = row["Proposals by Political Parties"]?.trim();
+    const rationale = row["Rationale"]?.trim() || "";
+    const joint = row["Joint"]?.trim();
+    const partner = row["Partner"]?.trim();
+
+    if (party && text) {
+      partArticlesMap[part][article].party_proposals.push({ party, text, rationale, joint, partner });
+    }
+  });
+
+  partKeys = Object.keys(partArticlesMap);
+
+  renderTOC();
+  renderCurrentPart();
+
+  document.getElementById('prev-part').onclick = () => {
+    if (currentPartIndex > 0) {
+      currentPartIndex--;
+      renderCurrentPart();
+    }
+  };
+
+  document.getElementById('next-part').onclick = () => {
+    if (currentPartIndex < partKeys.length - 1) {
+      currentPartIndex++;
+      renderCurrentPart();
+    }
+  };
+}
+
+function renderTOC() {
+  const tocList = document.getElementById('toc-list');
+  tocList.innerHTML = '';
+
+  partKeys.forEach((part, partIdx) => {
+    const tocPart = document.createElement('li');
+    tocPart.innerHTML = `<details><summary>${part}</summary><ul></ul></details>`;
+    const tocPartList = tocPart.querySelector('ul');
+
+    Object.keys(partArticlesMap[part]).forEach((article, idx) => {
+      const id = `part-${partIdx}-article-${idx}`;
+      const tocArticle = document.createElement('li');
+      tocArticle.innerHTML = `<a href="#${id}">${article}</a>`;
+      tocPartList.appendChild(tocArticle);
+    });
+
+    tocList.appendChild(tocPart);
+  });
+}
+
+function renderCurrentPart() {
+  const articlesContainer = document.getElementById('articles');
+  const navTitle = document.getElementById('part-title');
+  articlesContainer.innerHTML = '';
+
+  const part = partKeys[currentPartIndex];
+  const articles = partArticlesMap[part];
+  navTitle.textContent = part;
+
+  Object.entries(articles).forEach(([article, data], idx) => {
+    const id = `part-${currentPartIndex}-article-${idx}`;
+    const details = document.createElement('details');
+    details.className = 'accordion';
+    details.id = id;
+
+    const summary = document.createElement('summary');
+    summary.textContent = article;
+
+    const selectorWrapper = document.createElement('div');
+    selectorWrapper.className = 'selector';
+
+    const label1 = document.createElement('label');
+    label1.textContent = 'রাজনৈতিক দল:';
+    const partySelect = document.createElement('select');
+
+    const label2 = document.createElement('label');
+    label2.textContent = 'প্রস্তাব:';
+    const proposalSelect = document.createElement('select');
+
+    const proposalDiv = document.createElement('div');
+    proposalDiv.className = 'column';
+    proposalDiv.id = `proposal-${id}`;
+
+    const partyMap = {};
+    data.party_proposals.forEach((p, i) => {
+      if (!partyMap[p.party]) partyMap[p.party] = [];
+      partyMap[p.party].push({ index: i, ...p });
+    });
+
+    Object.keys(partyMap).forEach(party => {
+      const opt = document.createElement('option');
+      opt.value = party;
+      opt.textContent = party;
+      partySelect.appendChild(opt);
+    });
+
+    const updateProposalOptions = () => {
+      proposalSelect.innerHTML = '';
+      const selectedParty = partySelect.value;
+      const proposals = partyMap[selectedParty] || [];
+      proposals.forEach((item, j) => {
+        const opt = document.createElement('option');
+        opt.value = item.index;
+        opt.textContent = `প্রস্তাব ${toBanglaNumber(j + 1)}`;
+        proposalSelect.appendChild(opt);
+      });
+      switchProposal(data, parseInt(proposalSelect.value), proposalDiv);
+    };
+
+    partySelect.onchange = updateProposalOptions;
+    proposalSelect.onchange = () => {
+      switchProposal(data, parseInt(proposalSelect.value), proposalDiv);
+    };
+
+    selectorWrapper.append(label1, partySelect, label2, proposalSelect);
+
+    const content = document.createElement('div');
+    content.className = 'content';
+
+    const currentDiv = document.createElement('div');
+    currentDiv.className = 'column';
+    currentDiv.innerHTML = `<h4>বর্তমান রূপ</h4><p>${data.current}</p>`;
+
+    const commissionDiv = document.createElement('div');
+    commissionDiv.className = 'column';
+    commissionDiv.innerHTML = `<h4>কমিশনের প্রস্তাব</h4><p>${data.commission}</p>`;
+
+    content.append(currentDiv, commissionDiv, proposalDiv);
+    details.append(summary, selectorWrapper, content);
+    articlesContainer.appendChild(details);
+
+    updateProposalOptions();
+  });
+
+  document.getElementById('prev-part').disabled = currentPartIndex === 0;
+  document.getElementById('next-part').disabled = currentPartIndex === partKeys.length - 1;
+}
+
+function switchProposal(article, index, container) {
+  const p = article.party_proposals[index];
+  if (!p) {
+    container.innerHTML = '<p>এই অনুচ্ছেদের জন্য কোনো প্রস্তাব পাওয়া যায়নি।</p>';
+    return;
+  }
+  let html = `<h4>${p.party}’র প্রস্তাব</h4><p>${p.text}</p>`;
+  if (p.joint === 'Yes' && p.partner) {
+    html += `<p style="font-size: 0.9rem;color: #555;text-decoration: 1px dashed underline;text-underline-offset: 5px;">দ্রষ্টব্য: একই প্রস্তাব দিয়েছে ${p.partner}।</p>`;
+  }
+  if (p.rationale) {
+    html += `<details style="margin-top: 1rem;"><summary style="cursor: pointer;">যৌক্তিকতা</summary><div style="margin-top: 0.5rem;">${p.rationale}</div></details>`;
+  }
+  container.innerHTML = html;
+}
+
+document.addEventListener('DOMContentLoaded', loadData);
+</script>
+
+
+</body>
+</html>
