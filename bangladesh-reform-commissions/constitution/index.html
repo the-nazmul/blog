@@ -265,7 +265,7 @@ footer code {
 
 
 <script>
-const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 const toBanglaNumber = num => num.toString().split('').map(d => bnNums[+d] || d).join('');
 
 let partKeys = [];
@@ -302,20 +302,25 @@ async function loadData() {
 
   partKeys = Object.keys(partArticlesMap);
 
+  const hashInfo = parseHash(location.hash);
+  if (hashInfo.part !== null) currentPartIndex = hashInfo.part;
+
   renderTOC();
-  renderCurrentPart();
+  renderCurrentPart(() => {
+    applyHashLink(hashInfo);
+  });
 
   document.getElementById('prev-part').onclick = () => {
     if (currentPartIndex > 0) {
       currentPartIndex--;
-      renderCurrentPart();
+      updateHash(`proposal-part-${currentPartIndex}`);
     }
   };
 
   document.getElementById('next-part').onclick = () => {
     if (currentPartIndex < partKeys.length - 1) {
       currentPartIndex++;
-      renderCurrentPart();
+      updateHash(`proposal-part-${currentPartIndex}`);
     }
   };
 }
@@ -330,9 +335,9 @@ function renderTOC() {
     const tocPartList = tocPart.querySelector('ul');
 
     Object.keys(partArticlesMap[part]).forEach((article, idx) => {
-      const id = `part-${partIdx}-article-${idx}`;
+      const link = `#proposal-part-${partIdx}-article-${idx}-party-0-proposal-0`;
       const tocArticle = document.createElement('li');
-      tocArticle.innerHTML = `<a href="#${id}">${article}</a>`;
+      tocArticle.innerHTML = `<a href="${link}">${article}</a>`;
       tocPartList.appendChild(tocArticle);
     });
 
@@ -340,7 +345,7 @@ function renderTOC() {
   });
 }
 
-function renderCurrentPart() {
+function renderCurrentPart(callback = () => {}) {
   const articlesContainer = document.getElementById('articles');
   const navTitle = document.getElementById('part-title');
   articlesContainer.innerHTML = '';
@@ -371,12 +376,12 @@ function renderCurrentPart() {
 
     const proposalDiv = document.createElement('div');
     proposalDiv.className = 'column';
-    proposalDiv.id = `proposal-${id}`;
+    proposalDiv.dataset.articleIndex = idx;
 
     const partyMap = {};
     data.party_proposals.forEach((p, i) => {
       if (!partyMap[p.party]) partyMap[p.party] = [];
-      partyMap[p.party].push({ index: i, ...p });
+      partyMap[p.party].push({ globalIndex: i, ...p });
     });
 
     Object.keys(partyMap).forEach(party => {
@@ -386,22 +391,24 @@ function renderCurrentPart() {
       partySelect.appendChild(opt);
     });
 
-    const updateProposalOptions = () => {
+    const updateProposalOptions = (targetIndex = null) => {
       proposalSelect.innerHTML = '';
       const selectedParty = partySelect.value;
       const proposals = partyMap[selectedParty] || [];
       proposals.forEach((item, j) => {
         const opt = document.createElement('option');
-        opt.value = item.index;
+        opt.value = item.globalIndex;
         opt.textContent = `প্রস্তাব ${toBanglaNumber(j + 1)}`;
         proposalSelect.appendChild(opt);
       });
-      switchProposal(data, parseInt(proposalSelect.value), proposalDiv);
+      const selectedGlobal = targetIndex !== null ? targetIndex : parseInt(proposalSelect.value);
+      proposalSelect.value = selectedGlobal;
+      switchProposal(data, selectedGlobal, proposalDiv, id);
     };
 
-    partySelect.onchange = updateProposalOptions;
+    partySelect.onchange = () => updateProposalOptions();
     proposalSelect.onchange = () => {
-      switchProposal(data, parseInt(proposalSelect.value), proposalDiv);
+      switchProposal(data, parseInt(proposalSelect.value), proposalDiv, id);
     };
 
     selectorWrapper.append(label1, partySelect, label2, proposalSelect);
@@ -426,27 +433,110 @@ function renderCurrentPart() {
 
   document.getElementById('prev-part').disabled = currentPartIndex === 0;
   document.getElementById('next-part').disabled = currentPartIndex === partKeys.length - 1;
+
+  setTimeout(callback, 100);
 }
 
-function switchProposal(article, index, container) {
+function switchProposal(article, index, container, id) {
   const p = article.party_proposals[index];
   if (!p) {
     container.innerHTML = '<p>এই অনুচ্ছেদের জন্য কোনো প্রস্তাব পাওয়া যায়নি।</p>';
     return;
   }
-  let html = `<h4>${p.party}’র প্রস্তাব</h4><p>${p.text}</p>`;
+
+  const proposalId = `proposal-${id}-party-${index}`;
+  container.id = proposalId;
+
+  let html = `
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h4 style="margin: 0;">${p.party}’র প্রস্তাব</h4>
+      <button onclick="copyLinkTo('#${proposalId}')" title="লিংক কপি করুন" style="background: none; border: none; cursor: pointer; font-size: 1rem;">🔗</button>
+    </div>
+    <p>${p.text}</p>
+  `;
+
   if (p.joint === 'Yes' && p.partner) {
     html += `<p style="font-size: 0.9rem;color: #555;text-decoration: 1px dashed underline;text-underline-offset: 5px;">দ্রষ্টব্য: একই প্রস্তাব দিয়েছে ${p.partner}।</p>`;
   }
   if (p.rationale) {
     html += `<details style="margin-top: 1rem;"><summary style="cursor: pointer;">যৌক্তিকতা</summary><div style="margin-top: 0.5rem;">${p.rationale}</div></details>`;
   }
+
   container.innerHTML = html;
 }
 
-document.addEventListener('DOMContentLoaded', loadData);
-</script>
+function applyHashLink(info) {
+  if (info.article === null) return;
 
+  const detailsId = `part-${info.part}-article-${info.article}`;
+  const proposalId = `proposal-${detailsId}-party-${info.proposal}`;
+  const details = document.getElementById(detailsId);
+
+  if (!details) return;
+
+  details.open = true;
+
+  const partySelect = document.querySelector(`#${detailsId} select`);
+  const proposalSelect = partySelect?.nextElementSibling;
+  const articleData = partArticlesMap[partKeys[info.part]][Object.keys(partArticlesMap[partKeys[info.part]])[info.article]];
+
+  if (partySelect && proposalSelect) {
+    const selectedProposal = articleData.party_proposals[info.proposal];
+    if (!selectedProposal) return;
+
+    partySelect.value = selectedProposal.party;
+    partySelect.dispatchEvent(new Event('change'));
+
+    setTimeout(() => {
+      proposalSelect.value = info.proposal.toString();
+      proposalSelect.dispatchEvent(new Event('change'));
+
+      const target = document.getElementById(proposalId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.style.background = "#fef9c3";
+        setTimeout(() => target.style.background = '', 1500);
+      }
+    }, 100);
+  }
+}
+
+function parseHash(hash) {
+  const match = hash.match(/proposal-part-(\d+)(?:-article-(\d+))?(?:-party-(\d+))?(?:-proposal-(\d+))?/);
+  if (!match) return { part: null, article: null, party: null, proposal: null };
+
+  return {
+    part: parseInt(match[1], 10),
+    article: match[2] ? parseInt(match[2], 10) : null,
+    party: match[3] ? parseInt(match[3], 10) : 0,
+    proposal: match[4] ? parseInt(match[4], 10) : 0
+  };
+}
+
+function updateHash(fragment) {
+  location.hash = `#${fragment}`;
+}
+
+function copyLinkTo(anchor) {
+  const url = `${location.origin}${location.pathname}${anchor}`;
+  navigator.clipboard.writeText(url).then(() => {
+    alert("লিংক কপি হয়েছে!");
+  }).catch(() => {
+    alert("লিংক কপি করা যায়নি");
+  });
+}
+
+window.addEventListener("hashchange", () => {
+  const hashInfo = parseHash(location.hash);
+  if (hashInfo.part !== null) {
+    currentPartIndex = hashInfo.part;
+    renderCurrentPart(() => applyHashLink(hashInfo));
+  }
+});
+
+document.addEventListener("DOMContentLoaded", loadData);
+
+</script>
 
 </body>
 </html>
