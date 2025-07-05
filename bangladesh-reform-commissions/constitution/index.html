@@ -369,10 +369,14 @@ function renderCurrentPart(callback = () => {}) {
     const label1 = document.createElement('label');
     label1.textContent = 'রাজনৈতিক দল:';
     const partySelect = document.createElement('select');
+    partySelect.id = `party-select-${currentPartIndex}-${idx}`;
+    partySelect.name = partySelect.id;
 
     const label2 = document.createElement('label');
     label2.textContent = 'প্রস্তাব:';
     const proposalSelect = document.createElement('select');
+    proposalSelect.id = `proposal-select-${currentPartIndex}-${idx}`;
+    proposalSelect.name = proposalSelect.id;
 
     const proposalDiv = document.createElement('div');
     proposalDiv.className = 'column';
@@ -381,7 +385,7 @@ function renderCurrentPart(callback = () => {}) {
     const partyMap = {};
     data.party_proposals.forEach((p, i) => {
       if (!partyMap[p.party]) partyMap[p.party] = [];
-      partyMap[p.party].push({ globalIndex: i, ...p });
+      partyMap[p.party].push({ globalIndex: i, localIndex: partyMap[p.party].length, ...p });
     });
 
     Object.keys(partyMap).forEach(party => {
@@ -391,7 +395,7 @@ function renderCurrentPart(callback = () => {}) {
       partySelect.appendChild(opt);
     });
 
-    const updateProposalOptions = (targetIndex = null) => {
+    const updateProposalOptions = (targetGlobalIndex = null, localIndex = 0) => {
       proposalSelect.innerHTML = '';
       const selectedParty = partySelect.value;
       const proposals = partyMap[selectedParty] || [];
@@ -401,14 +405,18 @@ function renderCurrentPart(callback = () => {}) {
         opt.textContent = `প্রস্তাব ${toBanglaNumber(j + 1)}`;
         proposalSelect.appendChild(opt);
       });
-      const selectedGlobal = targetIndex !== null ? targetIndex : parseInt(proposalSelect.value);
-      proposalSelect.value = selectedGlobal;
-      switchProposal(data, selectedGlobal, proposalDiv, id);
+      const selected = targetGlobalIndex !== null ? targetGlobalIndex : proposals[0]?.globalIndex;
+      const selectedLocalIndex = proposals.find(p => p.globalIndex === selected)?.localIndex || 0;
+      proposalSelect.value = selected;
+      switchProposal(data, selected, proposalDiv, id, currentPartIndex, idx, selectedParty, selectedLocalIndex);
     };
 
     partySelect.onchange = () => updateProposalOptions();
     proposalSelect.onchange = () => {
-      switchProposal(data, parseInt(proposalSelect.value), proposalDiv, id);
+      const selectedParty = partySelect.value;
+      const selectedGlobalIndex = parseInt(proposalSelect.value);
+      const selectedLocalIndex = partyMap[selectedParty].find(p => p.globalIndex === selectedGlobalIndex)?.localIndex || 0;
+      switchProposal(data, selectedGlobalIndex, proposalDiv, id, currentPartIndex, idx, selectedParty, selectedLocalIndex);
     };
 
     selectorWrapper.append(label1, partySelect, label2, proposalSelect);
@@ -437,14 +445,14 @@ function renderCurrentPart(callback = () => {}) {
   setTimeout(callback, 100);
 }
 
-function switchProposal(article, index, container, id) {
+function switchProposal(article, index, container, id, partIdx, articleIdx, party, localIdx) {
   const p = article.party_proposals[index];
   if (!p) {
     container.innerHTML = '<p>এই অনুচ্ছেদের জন্য কোনো প্রস্তাব পাওয়া যায়নি।</p>';
     return;
   }
 
-  const proposalId = `proposal-${id}-party-${index}`;
+  const proposalId = `proposal-part-${partIdx}-article-${articleIdx}-party-${index}-proposal-${localIdx}`;
   container.id = proposalId;
 
   let html = `
@@ -469,36 +477,42 @@ function applyHashLink(info) {
   if (info.article === null) return;
 
   const detailsId = `part-${info.part}-article-${info.article}`;
-  const proposalId = `proposal-${detailsId}-party-${info.proposal}`;
   const details = document.getElementById(detailsId);
-
   if (!details) return;
 
-  details.open = true;
-
-  const partySelect = document.querySelector(`#${detailsId} select`);
-  const proposalSelect = partySelect?.nextElementSibling;
   const articleData = partArticlesMap[partKeys[info.part]][Object.keys(partArticlesMap[partKeys[info.part]])[info.article]];
+  const targetProposal = articleData.party_proposals[info.party];
+  if (!targetProposal) return;
 
-  if (partySelect && proposalSelect) {
-    const selectedProposal = articleData.party_proposals[info.proposal];
-    if (!selectedProposal) return;
+  const selectedParty = targetProposal.party;
+  const partySelect = document.getElementById(`party-select-${info.part}-${info.article}`);
+  const proposalSelect = document.getElementById(`proposal-select-${info.part}-${info.article}`);
 
-    partySelect.value = selectedProposal.party;
-    partySelect.dispatchEvent(new Event('change'));
+  if (!partySelect || !proposalSelect) return;
 
-    setTimeout(() => {
-      proposalSelect.value = info.proposal.toString();
-      proposalSelect.dispatchEvent(new Event('change'));
+  partySelect.value = selectedParty;
+  partySelect.dispatchEvent(new Event("change"));
 
-      const target = document.getElementById(proposalId);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        target.style.background = "#fef9c3";
-        setTimeout(() => target.style.background = '', 1500);
-      }
-    }, 100);
-  }
+  setTimeout(() => {
+    const proposals = articleData.party_proposals
+      .map((p, i) => ({ ...p, globalIndex: i }))
+      .filter(p => p.party === selectedParty);
+
+    const selected = proposals[info.proposal]; // info.proposal is local index
+    if (!selected) return;
+
+    proposalSelect.value = selected.globalIndex;
+    proposalSelect.dispatchEvent(new Event("change"));
+
+    const fullId = `proposal-part-${info.part}-article-${info.article}-party-${info.party}-proposal-${info.proposal}`;
+    const targetEl = document.getElementById(fullId);
+    if (targetEl) {
+      details.open = true;
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      targetEl.style.background = "#fef9c3";
+      setTimeout(() => targetEl.style.background = "", 1500);
+    }
+  }, 100);
 }
 
 function parseHash(hash) {
@@ -520,11 +534,19 @@ function updateHash(fragment) {
 function copyLinkTo(anchor) {
   const url = `${location.origin}${location.pathname}${anchor}`;
   navigator.clipboard.writeText(url).then(() => {
-    alert("লিংক কপি হয়েছে!");
-  }).catch(() => {
-    alert("লিংক কপি করা যায়নি");
+    const button = document.activeElement;
+    if (button && button.tagName === 'BUTTON') {
+      const original = button.innerHTML;
+      button.innerHTML = '✅ কপি হয়েছে!';
+      button.disabled = true;
+      setTimeout(() => {
+        button.innerHTML = original;
+        button.disabled = false;
+      }, 1500);
+    }
   });
 }
+
 
 window.addEventListener("hashchange", () => {
   const hashInfo = parseHash(location.hash);
