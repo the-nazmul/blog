@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>সংবিধান সংশোধনী তুলনা</title>
+<title>বাংলাদেশ সংবিধান সংস্কার কমিশনে জমা হওয়া প্রস্তাবের তুলনামূলক বিবরণী</title>
+<meta name="description" content="বাংলাদেশ সংবিধান সংশোধন কমিশনে রাজনৈতিক দল, সংগঠন ও ব্যক্তিদের জমা দেওয়া প্রস্তাবগুলো সহজে পড়া ও তুলনা করার জন্য একটি ইন্টার‌্যাকটিভ ওয়েবসাইট।">
+<meta name="keywords" content="বাংলাদেশ সংবিধান, সংবিধান সংশোধন, রাজনৈতিক দলের প্রস্তাব, সংবিধান সংস্কার কমিশন, বিএনপি, জামায়াতের প্রস্তাব, Bangladesh constitution, constitution reform proposals">
+<meta name="author" content="নাজমুল আহসান">
+<meta name="robots" content="index, follow">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
@@ -359,6 +364,14 @@ function renderCurrentPart(callback = () => {}) {
     const details = document.createElement('details');
     details.className = 'accordion';
     details.id = id;
+
+    details.addEventListener('toggle', () => {
+  if (details.open) {
+    document.querySelectorAll('#articles details').forEach(d => {
+      if (d !== details) d.open = false;
+    });
+  }
+})
 
     const summary = document.createElement('summary');
     summary.textContent = article;
