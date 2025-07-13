@@ -22,346 +22,605 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
   <style>
 
-:root {
-  --bg: #f9fafb;
-  --card-bg: #ffffff;
-  --accent: #0f172a;
-  --accent-light: #e0e7ff;
-  --border: #e2e8f0;
-  --text: #1e293b;
-  --radius: 0.75rem;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --font-sans: "Noto Sans Bengali", sans-serif;
-  --font-serif: "Noto Serif Bengali", serif;
+
+/* -----------------------------------------------------------
+   BANGLADESH CONSTITUTION | ACADEMIC-STYLE THEME
+   v2025-07-12
+   ----------------------------------------------------------- */
+
+/* 1 — DESIGN TOKENS
+   --------------------------------------------------------- */
+:root{
+  /* typefaces (declared in <head> via Google Fonts) */
+  --font-serif-bn   : "Noto Serif Bengali", serif;
+  --font-sans-bn    : "Noto Sans Bengali", sans-serif;
+  --font-serif-en   : "EB Garamond", "Times New Roman", serif;
+  --font-sans-en    : "Inter", "Helvetica Neue", sans-serif;
+
+  /* light-mode palette */
+  --c-paper         : #fbfbfb;
+  --c-ink           : #1a1a1a;
+  --c-accent        : #003366;     /* midnight blue */
+  --c-accent-soft   : #e6eef6;
+  --c-border        : #d0d7de;
+  --c-focus         : #8ab4f8;
+
+  /* sizing */
+  --radius          : .5rem;
+  --shadow          : 0 3px 8px rgba(0,0,0,.04);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* automatic dark-mode override via OS setting */
+@media (prefers-color-scheme: dark){
+  :root{
+    --c-paper     : #121212;
+    --c-ink       : #e8e6e3;
+    --c-accent    : #66aaff;
+    --c-accent-soft: #1e2a38;
+    --c-border    : #374151;
+    --c-focus     : #bb86fc;
+  }
+
 }
 
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  padding: 1rem;
+/* manual override via <html class="manual-dark"> */
+.manual-dark{
+  --c-paper      : #121212;
+  --c-ink        : #e8e6e3;
+  --c-accent     : #66aaff;
+  --c-accent-soft: #1e2a38;
+  --c-border     : #374151;
+  --c-focus      : #bb86fc;
+}
+
+
+
+/* 2 — GLOBAL ELEMENTS
+   --------------------------------------------------------- */
+html{ font-size: 112.5%; }                      /* ≈18 px */
+*,*::before,*::after{ box-sizing:border-box; 
+transition: background-color 0.4s ease, color 0.4s ease;}
+
+body{
+  margin:0;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--font-sans-bn);
   line-height: 1.75;
+  word-break: keep-all;
+  hyphens: auto;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1 {
-  text-align: center;
-  margin: 2rem auto 1rem;
-  font-size: 2.2rem;
-  font-weight: 700;
+
+
+
+a{
+  color: var(--c-accent);
+  text-decoration-thickness:.12em;
+  text-underline-offset:.18em;
+  transition: color .2s;
+}
+a:hover{ text-decoration:underline; }
+:focus-visible {
+  outline: 3px solid var(--c-focus);
+  outline-offset: 2px;
 }
 
-p {
-  font-family: var(--font-serif);
-  margin: 1rem 0;
+select:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--c-focus);
 }
 
-.toc {
-  max-width: 800px;
-  margin: 2.5rem auto;
-  padding: 2rem;
-  background: linear-gradient(145deg, #fdfdfd, #f3f6fa);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  text-align: center;
+
+/* English phrases inside Bengali text */
+.en{ font-family:var(--font-serif-en); font-style:italic; letter-spacing:.02em; }
+
+/* 3 — HEADINGS & PARAGRAPHS
+   --------------------------------------------------------- */
+h1,h2,h3,h4{
+  font-family: var(--font-serif-bn);
+  font-weight:700;
+  margin: .8em 0 .4em;
+  line-height:1.3;
+}
+h1{ font-size:2.2rem; text-align:center; }
+h2{ font-size:1.6rem; }
+h3{ font-size:1.3rem; }
+p { margin:1.1em 0;   text-align: justify;  text-justify: inter-word;}
+
+/* 4 — LAYOUT CONTAINERS
+   --------------------------------------------------------- */
+main{
+  max-width:72ch;
+  margin:0 auto;
+  padding:0 1rem 4rem;
 }
 
-.toc h2 {
-  font-size: 1.6rem;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
+/* shared card styles */
+.toc,
+.accordion,
+footer,
+.disclaimer,
+.column{
+  background:#fff;
+  border:1px solid var(--c-border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
 }
 
-.toc label {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  display: inline-block;
-  font-weight: 500;
+
+
+/* 5 — TOC DROPDOWN
+   --------------------------------------------------------- */
+.toc{
+  text-align:center;
+  padding:2rem;
+  margin:3rem auto;
+  max-width: 1000px;
 }
+.toc h2{ margin-bottom:1.25rem; color:var(--c-accent); }
+
 
 #toc-dropdown {
-  color: #000;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: #fff;
   width: 100%;
-  max-width: 300px;
-  margin: 0 auto 1rem;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='gray' height='24' viewBox='0 0 24 24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  max-width: 350px;
+  padding: 0.65rem 2.5rem 0.65rem 1rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background-color: var(--c-paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23003366'><path d='M4 6l4 4 4-4'/></svg>");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
-  background-size: 1rem;
+  background-size: 0.7rem;
+  appearance: none;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  text-align: center;
 }
 
-.accordion {
+#toc-dropdown:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* dark mode via OS preference */
+@media (prefers-color-scheme: dark) {
+  #toc-dropdown {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e8e6e3'><path d='M4 6l4 4 4-4'/></svg>");
+  }
+}
+
+/* manual dark mode override */
+.manual-dark #toc-dropdown {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e8e6e3'><path d='M4 6l4 4 4-4'/></svg>");
+  color: var(--c-ink);
+}
+
+
+/* 6 — ACCORDION (ARTICLE COMPARISON)
+   --------------------------------------------------------- */
+.accordion{
   max-width: 1000px;
-  margin: 2rem auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--card-bg);
-  box-shadow: var(--shadow);
+  margin:3rem auto;
+  overflow:hidden;
+}
+.accordion summary{
+  list-style:none;
+  background:var(--c-accent);
+  color:#fff;
+  padding:1rem 1.25rem;
+  font-size:1.15rem;
+  cursor:pointer;
+  user-select:none;
+  transition:background .25s;
 }
 
-.accordion summary {
-  background: var(--accent);
-  color: white;
-  padding: 1rem 1.25rem;
-  font-weight: 600;
-  font-size: 1.1rem;
-  cursor: pointer;
-  outline: none;
+.accordion summary::after {
+  content: "▾";
+  float: right;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
-.accordion summary:hover {
-  background-color: #1e293b;
+.accordion[open] summary::after {
+  transform: rotate(180deg);
 }
 
-.accordion .selector {
-  padding: 1rem 1.25rem;
-  background: var(--accent-light);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: flex-end;
-}
+.accordion summary:hover{ background:#00264d; }
+.accordion summary::-webkit-details-marker{ display:none; }
 
-.accordion .selector label {
-  font-weight: 500;
+.accordion .selector{
+  display:flex; flex-wrap:wrap; gap:1rem;
+  justify-content:flex-end;
+  padding:1.25rem 1.5rem;
+  background:var(--c-accent-soft);
+  border-bottom:1px solid var(--c-border);
 }
+.accordion label{ font-weight:600; }
 
 .accordion select {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
   font-size: 1rem;
-  background: #fff;
-  max-width: 200px;
+  padding: 0.45rem 2.2rem 0.45rem 0.9rem;
+  border: 1px solid var(--c-border);
+  border-radius: 0.4rem;
+  background-color: var(--c-paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23003366'><path d='M4 5l3 3 3-3'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 0.6rem;
+  appearance: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.accordion select:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+details summary::marker { display: none; }
+
+details summary {
+  position: relative;
+  padding-left: 1.2em;
   cursor: pointer;
 }
-
-.accordion .content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
+/* dark mode via OS */
+@media (prefers-color-scheme: dark) {
+  .accordion select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23e8e6e3'><path d='M4 5l3 3 3-3'/></svg>");
+    
+  }
 }
 
-.column {
-  background: #fefefe;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+/* manual dark mode override */
+.manual-dark .accordion select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23e8e6e3'><path d='M4 5l3 3 3-3'/></svg>");
+  color: var(--c-ink);
 }
 
-.column h4 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.05rem;
-  color: var(--accent);
-  font-weight: 600;
+.accordion .content{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1.5rem;
+  padding:1.5rem;
+}
+@media (min-width:900px){
+  .accordion .content{ grid-template-columns:repeat(3,1fr); }
 }
 
-#part-nav {
-  text-align: center;
-  margin: 2rem 0;
+.column{
+  padding:1.25rem;
+}
+.column h4{
+  margin:.2rem 0 .8rem;
+  color:var(--c-accent);
+  font-size:1.15rem;
+  font-weight:600;
 }
 
-#part-nav button {
-  background-color: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  margin: 0 0.5rem;
+/* 7 — PART NAVIGATION BUTTONS
+   --------------------------------------------------------- */
+#part-nav{
+  text-align:center;
+  margin:2.5rem 0;
+}
+
+button {
   font-size: 1rem;
+  font-family: inherit;
+  padding: 0.65rem 1.4rem;
+  border: 1px solid var(--c-border);
   border-radius: var(--radius);
+  background-color: var(--c-accent);
+  color: #fff;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s, transform 0.2s ease;
+  transition: background 0.25s, transform 0.18s, border-color 0.25s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-#part-nav button:hover:not(:disabled) {
-  background-color: #1e293b;
+button:hover:not(:disabled) {
+  background-color: #00264d;
   transform: translateY(-2px);
 }
 
-#part-nav button:disabled {
-  background-color: #cbd5e1;
-  color: #475569;
+button:disabled {
+  background-color: #9fb3c8;
+  border-color: #9fb3c8;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-footer {
-  background: #f8fafc;
-  border-top: 1px solid var(--border);
-  padding: 2.5rem 1.5rem;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  color: var(--text);
-  text-align: center;
+/* For secondary buttons (e.g., dark mode toggle) */
+button.secondary {
+  background: var(--c-accent-soft);
+  color: var(--c-ink);
+  border-color: var(--c-border);
 }
 
-footer p {
-  max-width: 720px;
-  margin: 1.25rem auto;
-  line-height: 1.7;
+button.secondary:hover {
+  background: var(--c-accent);
+  color: #fff;
+  border-color: var(--c-accent);
 }
 
-footer a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  font-weight: 500;
-  transition: color 0.2s ease;
+/* Manual dark mode override */
+.manual-dark button {
+  color: #fff;
+  background: var(--c-accent);
+  border-color: var(--c-accent);
 }
 
-footer a:hover {
-  color: #0f172a;
-  text-decoration: none;
+.manual-dark button.secondary {
+  background: #00264d;
+  border-color: #00264d;
+  color: #fff;
 }
 
-footer code {
-  background: #e2e8f0;
-  padding: 0.15rem 0.4rem;
-  border-radius: 0.25rem;
-  font-family: monospace;
-  font-size: 0.9em;
+/* Responsive button layout (if needed) */
+@media (max-width: 500px) {
+  #part-nav button {
+    margin-top: 0.6rem;
+    display: block;
+    width: 100%;
+  }
+}
+
+/* === BUTTON SIZES === */
+button.btn-sm {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.875rem;
+}
+
+button.btn-lg {
+  padding: 0.8rem 1.6rem;
+  font-size: 1.1rem;
+}
+
+/* === BUTTON ICON SUPPORT === */
+button.with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button.with-icon svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* === BUTTON GROUP === */
+.button-group {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.button-group.vertical {
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .disclaimer {
-  max-width: 800px;
-  margin: 1.5rem auto;
-  background-color: #fef3c7;
-  border: 1px solid #fde68a;
-  color: #78350f;
-  padding: 1rem 1.25rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  line-height: 1.6;
   position: relative;
+  margin: 2rem auto;
+  padding: 1.25rem 1.5rem 3.5rem; /* extra bottom padding for button spacing */
+  background-color: #fff8e1;
+  border-color: #ffe082;
+  text-align: center;
 }
 
-.disclaimer-close {
+.disclaimer-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+.disclaimer-action {
   position: absolute;
-  top: 8px;
-  right: 12px;
-  background: none;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.disclaimer-ok {
+  background-color: var(--c-accent);
+  color: #fff;
   border: none;
-  font-size: 1.25rem;
-  color: #92400e;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.25s ease, transform 0.18s ease;
 }
 
-.disclaimer-close:hover {
-  color: #b45309;
+.disclaimer-ok:hover {
+  background-color: #00264d;
+  transform: translateY(-2px);
 }
 
-body.dark {
-  background: #1e293b;
-  color: #f1f5f9;
+@media (prefers-color-scheme: dark) {
+  body, .column, .disclaimer, .accordion, footer {
+    color: var(--c-ink);
+  }
+
 }
 
-body.dark .toc,
-body.dark .accordion,
-body.dark .column,
-body.dark footer {
-  background: #334155;
-  color: #f1f5f9;
-  border-color: #475569;
-}
-
-body.dark .accordion summary {
-  background: #0f172a;
-}
-
-body.dark .accordion .selector,
-body.dark select,
-body.dark footer code {
-  background: #475569;
-  color: #f8fafc;
-  border-color: #64748b;
-}
-
-body.dark select {
-  background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-}
-
-body.dark a {
-  color: #93c5fd;
-}
-
-body.dark a:hover {
-  color: #bfdbfe;
-}
-
-body.dark .disclaimer {
-  background: #facc15;
-  color: #78350f;
-  border-color: #fbbf24;
-}
-
-body.dark .disclaimer-close {
-  color: #78350f;
-}
-
-
-@media (min-width: 768px) {
-  .accordion .content {
-    grid-template-columns: repeat(3, 1fr);
+@media (prefers-color-scheme: dark) {
+  p {
+    color: var(--c-paper) !important;
   }
 }
 
-@media (max-width: 480px) {
-  .accordion .selector {
-    flex-direction: column;
-    align-items: stretch;
+.manual-dark .disclaimer p {
+    color: var(--c-ink) !important;
   }
-  .accordion select {
-    width: 100%;
+
+ .manual-dark .dropdown-label {
+    color: var(--c-paper) !important;
   }
+
+.manual-dark p {
+  color: var(--c-paper) !important;
+}
+
+
+/* dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  .disclaimer {
+    background-color: #2c1e00;
+    border-color: #ffcc80;
+    color: var(--c-ink);
+  }
+
+  .disclaimer-ok {
+    background-color: var(--c-accent);
+    color: #fff;
+  }
+
+  .disclaimer-ok:hover {
+    background-color: #66aaff;
+  }
+}
+
+.manual-dark .disclaimer {
+  background-color: #2c1e00;
+  border-color: #ffcc80;
+  color: var(--c-ink);
+}
+.manual-dark .disclaimer-ok {
+  background-color: #00264d;
+  color: #fff;
+}
+
+/* When disclaimer is active, blur + dim the rest */
+body.blur-active #main-content {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.4;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+body.blur-inactive #main-content {
+  filter: none;
+  pointer-events: auto;
+  user-select: auto;
+  opacity: 1;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+/* 9 — FOOTER
+   --------------------------------------------------------- */
+footer{
+  padding:3rem 2rem;
+  font-size:.95rem;
+  text-align:center;
+}
+footer p{ margin:1.3rem auto; max-width:70ch; }
+footer code{
+  background:var(--c-accent-soft);
+  padding:.15rem .4rem;
+  border-radius:.25rem;
+  font-family:monospace;
+  font-size:.9em;
+  color: var(--c-accent);
+}
+
+/* -----------------------------------------------------------
+   DARK-MODE TOGGLE BUTTON
+   ----------------------------------------------------------- */
+#toggle-dark-mode{
+  background:var(--c-accent-soft);
+  color:var(--c-ink);
+  border:1px solid var(--c-border);
+  border-radius:.45rem;
+  padding:.55rem 1.2rem;
+  font-size:.95rem;
+  transition:background .25s,color .25s,border-color .25s,transform .18s;
+}
+#toggle-dark-mode:hover{
+  background:var(--c-accent); color:#fff; border-color:var(--c-accent);
+  transform:translateY(-2px);
+}
+#toggle-dark-mode.is-dark{                /* JS will add this class in dark mode */
+  background:#00264d; border-color:#00264d; color:#fff;
+}
+
+
+
+/* 10 — PRINT STYLE
+   --------------------------------------------------------- */
+@media print{
+  #toggle-dark-mode, #part-nav, .disclaimer{ display:none!important; }
+  a::after{
+    content:" (" attr(href) ")";
+    font-size:.8em;
+  }
+}
+
+/* 11 — UTILITY CLASSES
+   --------------------------------------------------------- */
+sup.footnote{ font-size:.75em; vertical-align:super; color:var(--c-accent); }
+.sc{ font-variant:small-caps; letter-spacing:.05em; }
+p[aria-level]{                     /* numbered paragraphs */
+  text-indent:-2.3rem;
+  padding-left:2.3rem;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 
   </style>
 </head>
-<body>
-  <div style="text-align: center; margin-top: -1rem; margin-bottom: 1rem;">
-  <button id="toggle-dark-mode" style="padding: 0.4rem 1rem; border-radius: 0.5rem; border: 1px solid var(--border); background: white; font-size: 1rem; cursor: pointer;">
-    🌙 ডার্ক মোড চালু করুন
-  </button>
-</div>
+<body class="blur-active">
 
-  <h1>সংবিধান সংস্কার কমিশনে জমা হওয়া প্রস্তাবের তুলনামূলক বিবরণী</h1>
 
 <div id="disclaimer-banner" class="disclaimer">
-  <span class="disclaimer-text">
+  <p class="disclaimer-text">
     সংবিধান সংস্কার কমিশনে দেয়া দলগুলোর প্রস্তাব অনেক ক্ষেত্রেই পরিবর্তিত হয়েছে; বিশেষ করে জাতীয় ঐকমত্য কমিশনের সঙ্গে বৈঠকে। 
     এই ওয়েবসাইটে থাকা বিষয়াবলী কেবলমাত্র পূর্ববর্তী সংবিধান সংস্কার কমিশনে জমা দেয়া প্রস্তাব। 
     গবেষণা ও অ্যাকসিসেবল আর্কাইভ হিসেবে এই ওয়েবসাইট সেগুলো সংরক্ষণ করছে।
-  </span>
-  <button class="disclaimer-close" onclick="document.getElementById('disclaimer-banner').style.display='none'">✕</button>
+  </p>
+  <div class="disclaimer-action">
+<button class="disclaimer-ok" onclick="dismissDisclaimer()">আমি বুঝতে পেরেছি।</button>
+  </div>
 </div>
+
+  <div id="main-content">
+<!-- just change --border → --c-border --><button id="toggle-dark-mode" class="secondary">🌙 ডার্ক মোড চালু করুন</button>
+
+
+  <h1>সংবিধান সংস্কার কমিশনে জমা হওয়া প্রস্তাবের তুলনামূলক বিবরণী</h1>
+
 
 
 <div class="toc">
   <h2>অনুচ্ছেদ নির্বাচন করুন</h2>
-  <label for="toc-dropdown" style="display:block; margin-bottom: 0.5rem;">অধ্যায় নির্বাচন করুন:</label>
+  <label for="toc-dropdown"  style="display:block; margin-bottom: 0.5rem;" class="dropdown-label">অধ্যায় নির্বাচন করুন:</label>
   <select id="toc-dropdown" style="margin-bottom: 1rem;"></select>
 </div>
 
@@ -402,7 +661,7 @@ body.dark .disclaimer-close {
   </p>
 </footer>
 
-
+</div>
 
 <script>
 const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -703,27 +962,37 @@ window.addEventListener("hashchange", () => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", loadData);
 
-// Dark mode toggle
-document.getElementById('toggle-dark-mode').addEventListener('click', () => {
-  const body = document.body;
+const applyTheme = (dark) => {
+  const root   = document.documentElement;
   const button = document.getElementById('toggle-dark-mode');
-  body.classList.toggle('dark');
-  const dark = body.classList.contains('dark');
-  button.textContent = dark ? '☀️ লাইট মোড চালু করুন' : '🌙 ডার্ক মোড চালু করুন';
+
+  root.classList.toggle('manual-dark', dark);   // manual override wins
+  button.classList.toggle('is-dark', dark);
+
+  button.textContent = dark ? '☀️ লাইট মোড চালু করুন'
+                            : '🌙 ডার্ক মোড চালু করুন';
   localStorage.setItem('prefers-dark', dark ? 'yes' : 'no');
+};
+
+/* ② Initial load — respect stored preference */
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme(localStorage.getItem('prefers-dark') === 'yes');
+
+  /* ③ Button click */
+  document.getElementById('toggle-dark-mode').addEventListener('click', () => {
+    applyTheme(!document.documentElement.classList.contains('manual-dark'));
+  });
+
+  loadData();   // ← your existing function call
 });
 
-// Load dark mode preference
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('prefers-dark') === 'yes') {
-    document.body.classList.add('dark');
-    document.getElementById('toggle-dark-mode').textContent = '☀️ লাইট মোড চালু করুন';
-  }
-});
-</script>
 
+function dismissDisclaimer() {
+  document.getElementById('disclaimer-banner').style.display = 'none';
+  document.body.classList.remove('blur-active');
+  document.body.classList.add('blur-inactive');
+}
 
 </script>
 
