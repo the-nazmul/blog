@@ -50,26 +50,14 @@
       --shadow          : 0 3px 8px rgba(0,0,0,.04);
     }
 
-    /* automatic dark-mode override via OS setting */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --c-paper     : #121212;
-        --c-ink       : #e8e6e3;
-        --c-accent    : #66aaff;
-        --c-accent-soft: #1e2a38;
-        --c-border    : #374151;
-        --c-focus     : #bb86fc;
-      }
-    }
-
-    /* manual override via <html class="manual-dark"> */
+    /* manual dark‑mode override via <html class="manual-dark"> */
     .manual-dark {
-      --c-paper      : #121212;
-      --c-ink        : #e8e6e3;
-      --c-accent     : #66aaff;
-      --c-accent-soft: #1e2a38;
-      --c-border     : #374151;
-      --c-focus      : #bb86fc;
+      --c-paper         : #121212;
+      --c-ink           : #e8e6e3;
+      --c-accent        : #66aaff;
+      --c-accent-soft   : #1e2a38;
+      --c-border        : #374151;
+      --c-focus         : #bb86fc;
     }
 
     /* 2 — GLOBAL ELEMENTS
@@ -122,7 +110,7 @@
     h1 { font-size: 2.2rem; text-align: center; }
     h2 { font-size: 1.6rem; }
     h3 { font-size: 1.3rem; }
-    p { margin: 1.1em 0; text-align: justify; text-justify: inter-word; }
+    p  { margin: 1.1em 0; text-align: justify; text-justify: inter-word; }
 
     /* 4 — LAYOUT CONTAINERS
        --------------------------------------------------------- */
@@ -164,6 +152,7 @@
       border: 1px solid var(--c-border);
       border-radius: var(--radius);
       background-color: var(--c-paper);
+      /* arrow */
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23003366'><path d='M4 6l4 4 4-4'/></svg>");
       background-repeat: no-repeat;
       background-position: right 0.75rem center;
@@ -180,11 +169,6 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    @media (prefers-color-scheme: dark) {
-      #toc-dropdown {
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e8e6e3'><path d='M4 6l4 4 4-4'/></svg>");
-      }
-    }
     .manual-dark #toc-dropdown {
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e8e6e3'><path d='M4 6l4 4 4-4'/></svg>");
       color: var(--c-ink);
@@ -250,11 +234,6 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
-    @media (prefers-color-scheme: dark) {
-      .accordion select {
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23e8e6e3'><path d='M4 5l3 3 3-3'/></svg>");
-      }
-    }
     .manual-dark .accordion select {
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23e8e6e3'><path d='M4 5l3 3 3-3'/></svg>");
       color: var(--c-ink);
@@ -270,9 +249,7 @@
       .accordion .content { grid-template-columns: repeat(3, 1fr); }
     }
 
-    .column {
-      padding: 1.25rem;
-    }
+    .column { padding: 1.25rem; }
     .column h4 {
       margin: .2rem 0 .8rem;
       color: var(--c-accent);
@@ -303,6 +280,7 @@
       border-color: #9fb3c8;
       cursor: not-allowed;
     }
+
     .btn-secondary {
       background: var(--c-accent-soft);
       color: var(--c-ink);
@@ -314,23 +292,6 @@
       border-color: var(--c-accent);
     }
 
-    @media (prefers-color-scheme: dark) {
-      .btn {
-        background: var(--c-accent);
-        color: #fff;
-        border-color: var(--c-accent);
-      }
-      .btn-secondary {
-        background: var(--c-accent-soft);
-        color: var(--c-ink);
-        border-color: var(--c-border);
-      }
-      .btn-secondary:hover:not(:disabled) {
-        background: var(--c-accent);
-        color: #fff;
-        border-color: var(--c-accent);
-      }
-    }
     .manual-dark .btn {
       background: var(--c-accent);
       color: #fff;
@@ -389,13 +350,6 @@
       text-align: center;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .disclaimer {
-        background-color: #2c1e00;
-        border-color: #ffcc80;
-        color: var(--c-ink);
-      }
-    }
     .manual-dark .disclaimer {
       background-color: #2c1e00;
       border-color: #ffcc80;
@@ -471,18 +425,15 @@
       border: 0;
     }
 
-    /* Dark mode text color fixes */
-    @media (prefers-color-scheme: dark) {
-      p, .column, .disclaimer, .accordion, footer {
-        color: var(--c-ink);
-      }
-    }
-    .manual-dark p {
-      color: var(--c-ink);
-    }
+    /* ensure text colours adjust in manual-dark mode */
+    .manual-dark p,
+    .manual-dark .column,
+    .manual-dark .accordion,
+    .manual-dark footer { color: var(--c-ink); }
   </style>
 </head>
 <body class="blur-active">
+  <!-- Disclaimer Banner -->
   <div id="disclaimer-banner" class="disclaimer">
     <p class="disclaimer-text">
       সংবিধান সংস্কার কমিশনে দেয়া দলগুলোর প্রস্তাব অনেক ক্ষেত্রেই পরিবর্তিত হয়েছে; বিশেষ করে জাতীয় ঐকমত্য কমিশনের সঙ্গে বৈঠকে। 
@@ -539,6 +490,7 @@
     </footer>
   </div>
 
+  <!-- JS remains unchanged except it no longer relies on OS-level dark‑mode -->
   <script>
     const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
     const toBanglaNumber = num => num.toString().split('').map(d => bnNums[+d] || d).join('');
@@ -838,6 +790,7 @@
       }
     });
 
+    /* Manual dark‑mode toggle */
     const applyTheme = (dark) => {
       const root   = document.documentElement;
       const button = document.getElementById('toggle-dark-mode');
