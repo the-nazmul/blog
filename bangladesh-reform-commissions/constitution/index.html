@@ -25,149 +25,178 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&family=Noto+Serif+Bengali:wght@100..900&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f9fafb;
-      --card-bg: #ffffff;
-      --accent: #0f172a;
-      --accent-light: #e0e7ff;
-      --border: #e2e8f0;
-      --text: #1e293b;
-      --radius: 0.75rem;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      --font: "Noto Sans Bengali", sans-serif;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      padding: 0 1rem;
-    }
-    h1 {
-      text-align: center;
-      margin: 2rem 0 1rem;
-      font-size: 2.2rem;
-    }
-    .toc {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: linear-gradient(145deg, #fdfdfd, #f3f6fa);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      border: 1px solid var(--border);
-    }
 
-    p {
-        font-family: 'Noto Serif Bengali';
-    }
-    .toc h2 {
-      margin-top: 0;
-      font-size: 1.6rem;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
-      text-align: center;
-    }
-    .toc ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.75rem;
-    }
-    .toc li {
-      background: #fff;
-      padding: 0.75rem 1.2rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-      transition: transform 0.2s ease, background 0.2s;
-    }
-    .toc li:hover {
-      background: #f1f5f9;
-      transform: translateY(-2px);
-    }
-    .toc a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      display: block;
-    }
-    .toc a:hover {
-      text-decoration: underline;
-    }
-    .accordion {
-      max-width: 1000px;
-      margin: 1.5rem auto;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: var(--card-bg);
-    }
-    .accordion summary {
-      background: var(--accent);
-      color: white;
-      padding: 1rem 1.25rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    .accordion .selector {
-      padding: 1rem 1.25rem;
-      background: var(--accent-light);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 1rem;
-      justify-content: right;
-    }
-    .accordion select {
-      padding: 0.4rem 0.6rem;
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      background: #fff;
-      font-size: 1rem;
-    }
-    .accordion .content {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1.25rem;
-    }
-    .column {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      background: #fefefe;
-    }
-    .column h4 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      color: var(--accent);
-      font-size: 1.05rem;
-    }
+:root {
+  --bg: #f9fafb;
+  --card-bg: #ffffff;
+  --accent: #0f172a;
+  --accent-light: #e0e7ff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --radius: 0.75rem;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --font-sans: "Noto Sans Bengali", sans-serif;
+  --font-serif: "Noto Serif Bengali", serif;
+}
 
-    #part-nav button {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  padding: 1rem;
+  line-height: 1.75;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem auto 1rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+p {
+  font-family: var(--font-serif);
+  margin: 1rem 0;
+}
+
+.toc {
+  max-width: 800px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #fdfdfd, #f3f6fa);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.toc h2 {
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+}
+
+.toc label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-weight: 500;
+}
+
+#toc-dropdown {
+  color: #000;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 1rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='gray' height='24' viewBox='0 0 24 24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  cursor: pointer;
+}
+
+.accordion {
+  max-width: 1000px;
+  margin: 2rem auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+
+.accordion summary {
+  background: var(--accent);
+  color: white;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.accordion summary:hover {
+  background-color: #1e293b;
+}
+
+.accordion .selector {
+  padding: 1rem 1.25rem;
+  background: var(--accent-light);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.accordion .selector label {
+  font-weight: 500;
+}
+
+.accordion select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #fff;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.accordion .content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.column {
+  background: #fefefe;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.column h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+#part-nav {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+#part-nav button {
   background-color: var(--accent);
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
   margin: 0 0.5rem;
   font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background 0.3s, transform 0.2s ease;
 }
 
 #part-nav button:hover:not(:disabled) {
-  background-color: #1e293b; /* Slightly darker */
+  background-color: #1e293b;
   transform: translateY(-2px);
 }
 
@@ -178,23 +207,20 @@
   box-shadow: none;
 }
 
-
 footer {
   background: #f8fafc;
   border-top: 1px solid var(--border);
   padding: 2.5rem 1.5rem;
-  font-family: var(--font);
+  font-family: var(--font-sans);
   font-size: 0.95rem;
-  line-height: 1.75;
   color: var(--text);
   text-align: center;
 }
 
 footer p {
-  margin: 1.25rem 0;
   max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1.25rem auto;
+  line-height: 1.7;
 }
 
 footer a {
@@ -220,53 +246,112 @@ footer code {
 
 .disclaimer {
   max-width: 800px;
-  background-color: #fef3c7; /* light yellow */
+  margin: 1.5rem auto;
+  background-color: #fef3c7;
   border: 1px solid #fde68a;
   color: #78350f;
   padding: 1rem 1.25rem;
   border-radius: 6px;
-  position: relative;
   font-size: 0.95rem;
   line-height: 1.6;
-  margin: 1rem auto;
+  position: relative;
 }
 
-.disclaimer .disclaimer-close {
+.disclaimer-close {
   position: absolute;
   top: 8px;
   right: 12px;
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #92400e;
   cursor: pointer;
-  padding: 0;
 }
 
-.disclaimer .disclaimer-close:hover {
+.disclaimer-close:hover {
   color: #b45309;
 }
 
+body.dark {
+  background: #1e293b;
+  color: #f1f5f9;
+}
 
-    @media(min-width: 768px) {
-      .accordion .content {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    @media (max-width: 480px) {
-  .selector select {
-    min-width: 100%;
+body.dark .toc,
+body.dark .accordion,
+body.dark .column,
+body.dark footer {
+  background: #334155;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+
+body.dark .accordion summary {
+  background: #0f172a;
+}
+
+body.dark .accordion .selector,
+body.dark select,
+body.dark footer code {
+  background: #475569;
+  color: #f8fafc;
+  border-color: #64748b;
+}
+
+body.dark select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+body.dark a {
+  color: #93c5fd;
+}
+
+body.dark a:hover {
+  color: #bfdbfe;
+}
+
+body.dark .disclaimer {
+  background: #facc15;
+  color: #78350f;
+  border-color: #fbbf24;
+}
+
+body.dark .disclaimer-close {
+  color: #78350f;
+}
+
+
+@media (min-width: 768px) {
+  .accordion .content {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
+
+@media (max-width: 480px) {
+  .accordion .selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .accordion select {
+    width: 100%;
+  }
+}
+
 
   </style>
 </head>
 <body>
+  <div style="text-align: center; margin-top: -1rem; margin-bottom: 1rem;">
+  <button id="toggle-dark-mode" style="padding: 0.4rem 1rem; border-radius: 0.5rem; border: 1px solid var(--border); background: white; font-size: 1rem; cursor: pointer;">
+    🌙 ডার্ক মোড চালু করুন
+  </button>
+</div>
+
   <h1>সংবিধান সংস্কার কমিশনে জমা হওয়া প্রস্তাবের তুলনামূলক বিবরণী</h1>
 
 <div id="disclaimer-banner" class="disclaimer">
   <span class="disclaimer-text">
-    সংবিধান সংস্কার কমিশনে দেয়া দলগুলোর প্রস্তাব অনেক ক্ষেত্রেই পরিবর্তিত হয়েছে; বিশেষ করে জাতীয় ঐকমত্য কমিশনের বৈঠকে। 
+    সংবিধান সংস্কার কমিশনে দেয়া দলগুলোর প্রস্তাব অনেক ক্ষেত্রেই পরিবর্তিত হয়েছে; বিশেষ করে জাতীয় ঐকমত্য কমিশনের সঙ্গে বৈঠকে। 
     এই ওয়েবসাইটে থাকা বিষয়াবলী কেবলমাত্র পূর্ববর্তী সংবিধান সংস্কার কমিশনে জমা দেয়া প্রস্তাব। 
     গবেষণা ও অ্যাকসিসেবল আর্কাইভ হিসেবে এই ওয়েবসাইট সেগুলো সংরক্ষণ করছে।
   </span>
@@ -274,16 +359,18 @@ footer code {
 </div>
 
 
-  <div class="toc">
-    <h2>অনুচ্ছেদ নির্বাচন করুন</h2>
-    <ul id="toc-list"></ul>
-  </div>
+<div class="toc">
+  <h2>অনুচ্ছেদ নির্বাচন করুন</h2>
+  <label for="toc-dropdown" style="display:block; margin-bottom: 0.5rem;">অধ্যায় নির্বাচন করুন:</label>
+  <select id="toc-dropdown" style="margin-bottom: 1rem;"></select>
+</div>
+
 
   <div id="articles"></div>
 <div id="part-nav" style="text-align:center; margin: 2rem 0;">
-  <button id="prev-part" disabled>← আগের অধ্যায়</button>
+  <button id="prev-part" disabled>← আগের ভাগ</button>
   <span id="part-title" style="margin: 0 1.5rem; font-weight: bold;"></span>
-  <button id="next-part">পরের অধ্যায় →</button>
+  <button id="next-part">পরের ভাগ →</button>
 </div>
 
 <footer>
@@ -292,18 +379,16 @@ footer code {
     <br>যোগাযোগ: <code>nazmul[@]berkeley.edu</code>
   </p>
 
-  <p>
-    কমিশনে জমা দেওয়া রাজনৈতিক দলগুলোর অপ্রকাশিত প্রস্তাব সরবরাহ করায় 
-    <strong><a href="https://www.facebook.com/abu.jor.ansar.uddin.ahamod" target="_blank">রাজীব আহমদ</a></strong> 
-    (সাংবাদিক, সমকাল)-কে আন্তরিক ধন্যবাদ।
-  </p>
+  
 
   <p>
-    স্বেচ্ছাসেবী হিসেবে ভূমিকা রেখেছেন — 
+    
+    কমিশনে জমা দেওয়া রাজনৈতিক দলগুলোর অপ্রকাশিত প্রস্তাব সরবরাহ করায় 
+<a href="https://www.facebook.com/abu.jor.ansar.uddin.ahamod" target="_blank">রাজীব আহমদকে</a> আন্তরিক ধন্যবাদ। এছাড়াও স্বেচ্ছাসেবী হিসেবে ভূমিকা রেখেছেন — 
     <a href="https://www.facebook.com/mahmud10081996#" target="_blank">মো. মাহমুদুল হাসান</a>, 
     <a href="https://www.facebook.com/mehediahasan123#" target="_blank">মেহেদী আহসান</a>, 
     <a href="https://www.facebook.com/mezbahsmaron1#" target="_blank">মেজবাহ স্মরণ</a>, 
-    <a href="https://www.facebook.com/mdabutaherjilani#" target="_blank">আবু তাহের জিলানী</a>, 
+    <a href="https://www.facebook.com/mdabutaherjilani#" target="_blank">আবু তাহের জিলানী</a> ও 
     <a href="https://www.facebook.com/syedahlan.jadid#" target="_blank">সৈয়দ আহলান জাদিদ</a>।
   </p>
 
@@ -320,48 +405,22 @@ footer code {
 
 
 <script>
-  const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+const bnNums = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
 const toBanglaNumber = num => num.toString().split('').map(d => bnNums[+d] || d).join('');
 
 let partKeys = [];
-let partArticlesMap = {};
 let currentPartIndex = 0;
+let partArticlesMap = {};
 
 async function loadData() {
-  const res = await fetch('crc.json');
-  const rawData = await res.json();
-
-  rawData.forEach(row => {
-    const part = row["Part"]?.trim() || "[অনির্ধারিত অধ্যায়]";
-    const article = row["Article"]?.trim() || "[অনির্ধারিত অনুচ্ছেদ]";
-    if (!partArticlesMap[part]) partArticlesMap[part] = {};
-    if (!partArticlesMap[part][article]) {
-      partArticlesMap[part][article] = {
-        article,
-        current: row["Current Form"]?.trim() || "",
-        commission: row["Commission’s Proposals"]?.trim() || "",
-        party_proposals: []
-      };
-    }
-
-    const party = row["Political Party"]?.trim();
-    const text = row["Proposals by Political Parties"]?.trim();
-    const rationale = row["Rationale"]?.trim() || "";
-    const joint = row["Joint"]?.trim();
-    const partner = row["Partner"]?.trim();
-
-    if (party && text) {
-      partArticlesMap[part][article].party_proposals.push({ party, text, rationale, joint, partner });
-    }
-  });
-
-  partKeys = Object.keys(partArticlesMap);
+  const res = await fetch('split_parts/parts.json');
+  partKeys = await res.json();
 
   const hashInfo = parseHash(location.hash);
   if (hashInfo.part !== null) currentPartIndex = hashInfo.part;
 
   renderTOC();
-  renderCurrentPart(() => {
+  await renderCurrentPart(() => {
     applyHashLink(hashInfo);
   });
 
@@ -381,33 +440,60 @@ async function loadData() {
 }
 
 function renderTOC() {
-  const tocList = document.getElementById('toc-list');
-  tocList.innerHTML = '';
+  const tocDropdown = document.getElementById('toc-dropdown');
+  tocDropdown.innerHTML = '';
 
   partKeys.forEach((part, partIdx) => {
-    const tocPart = document.createElement('li');
-    tocPart.innerHTML = `<details><summary>${part}</summary><ul></ul></details>`;
-    const tocPartList = tocPart.querySelector('ul');
-
-    Object.keys(partArticlesMap[part]).forEach((article, idx) => {
-      const link = `#proposal-part-${partIdx}-article-${idx}-party-0-proposal-0`;
-      const tocArticle = document.createElement('li');
-      tocArticle.innerHTML = `<a href="${link}">${article}</a>`;
-      tocPartList.appendChild(tocArticle);
-    });
-
-    tocList.appendChild(tocPart);
+    const option = document.createElement('option');
+    option.value = partIdx;
+    option.textContent = part;
+    tocDropdown.appendChild(option);
   });
+
+  tocDropdown.value = currentPartIndex;
+
+  tocDropdown.onchange = () => {
+    currentPartIndex = parseInt(tocDropdown.value);
+    updateHash(`proposal-part-${currentPartIndex}`);
+    renderCurrentPart();
+  };
 }
 
-function renderCurrentPart(callback = () => {}) {
+async function renderCurrentPart(callback = () => {}) {
   const articlesContainer = document.getElementById('articles');
   const navTitle = document.getElementById('part-title');
   articlesContainer.innerHTML = '';
 
   const part = partKeys[currentPartIndex];
-  const articles = partArticlesMap[part];
   navTitle.textContent = part;
+
+  const res = await fetch(`split_parts/part-${currentPartIndex}.json`);
+  const rawData = await res.json();
+
+  const articles = {};
+  rawData.forEach(row => {
+    const article = row["Article"]?.trim() || "[অনির্ধারিত অনুচ্ছেদ]";
+    if (!articles[article]) {
+      articles[article] = {
+        article,
+        current: row["Current Form"]?.trim() || "",
+        commission: row["Commission’s Proposals"]?.trim() || "",
+        party_proposals: []
+      };
+    }
+
+    const party = row["Political Party"]?.trim();
+    const text = row["Proposals by Political Parties"]?.trim();
+    const rationale = row["Rationale"]?.trim() || "";
+    const joint = row["Joint"]?.trim();
+    const partner = row["Partner"]?.trim();
+
+    if (party && text) {
+      articles[article].party_proposals.push({ party, text, rationale, joint, partner });
+    }
+  });
+
+  partArticlesMap[part] = articles;
 
   Object.entries(articles).forEach(([article, data], idx) => {
     const id = `part-${currentPartIndex}-article-${idx}`;
@@ -416,12 +502,12 @@ function renderCurrentPart(callback = () => {}) {
     details.id = id;
 
     details.addEventListener('toggle', () => {
-  if (details.open) {
-    document.querySelectorAll('#articles details').forEach(d => {
-      if (d !== details) d.open = false;
+      if (details.open) {
+        document.querySelectorAll('#articles details').forEach(d => {
+          if (d !== details) d.open = false;
+        });
+      }
     });
-  }
-})
 
     const summary = document.createElement('summary');
     summary.textContent = article;
@@ -561,7 +647,7 @@ function applyHashLink(info) {
       .map((p, i) => ({ ...p, globalIndex: i }))
       .filter(p => p.party === selectedParty);
 
-    const selected = proposals[info.proposal]; // info.proposal is local index
+    const selected = proposals[info.proposal];
     if (!selected) return;
 
     proposalSelect.value = selected.globalIndex;
@@ -581,7 +667,6 @@ function applyHashLink(info) {
 function parseHash(hash) {
   const match = hash.match(/proposal-part-(\d+)(?:-article-(\d+))?(?:-party-(\d+))?(?:-proposal-(\d+))?/);
   if (!match) return { part: null, article: null, party: null, proposal: null };
-
   return {
     part: parseInt(match[1], 10),
     article: match[2] ? parseInt(match[2], 10) : null,
@@ -610,7 +695,6 @@ function copyLinkTo(anchor) {
   });
 }
 
-
 window.addEventListener("hashchange", () => {
   const hashInfo = parseHash(location.hash);
   if (hashInfo.part !== null) {
@@ -620,6 +704,26 @@ window.addEventListener("hashchange", () => {
 });
 
 document.addEventListener("DOMContentLoaded", loadData);
+
+// Dark mode toggle
+document.getElementById('toggle-dark-mode').addEventListener('click', () => {
+  const body = document.body;
+  const button = document.getElementById('toggle-dark-mode');
+  body.classList.toggle('dark');
+  const dark = body.classList.contains('dark');
+  button.textContent = dark ? '☀️ লাইট মোড চালু করুন' : '🌙 ডার্ক মোড চালু করুন';
+  localStorage.setItem('prefers-dark', dark ? 'yes' : 'no');
+});
+
+// Load dark mode preference
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('prefers-dark') === 'yes') {
+    document.body.classList.add('dark');
+    document.getElementById('toggle-dark-mode').textContent = '☀️ লাইট মোড চালু করুন';
+  }
+});
+</script>
+
 
 </script>
 
